@@ -11,8 +11,8 @@ namespace knx {
 // --------------------------------------------------
 
 bool Blind::begin() {
-    pinMode(_up_pin, INPUT_PULLDOWN);
-    pinMode(_down_pin, INPUT_PULLDOWN);
+    pinMode(_up_pin, INPUT_PULLUP);
+    pinMode(_down_pin, INPUT_PULLUP);
     return Dotmatrix::begin();
 }
 
@@ -36,7 +36,7 @@ void Blind::update() {
     clear();
     float maxAngle = atan(_blindSize);
     float minAngle = atan(1.0/_blindSize);
-    int16_t deltaTime = (digitalRead(_down_pin) - digitalRead(_up_pin)) * (millis() - _lastUpdateTime);
+    int16_t deltaTime = (!digitalRead(_down_pin) - !digitalRead(_up_pin)) * (millis() - _lastUpdateTime);
 
     if (deltaTime > 0) {
         _timeContinuslyGoingUp = 0;
@@ -62,6 +62,47 @@ void Blind::update() {
     }
 
     _lastUpdateTime = millis();
+}
+
+// ----------------------------------------------------------------------------------------------------
+// Door class
+// ----------------------------------------------------------------------------------------------------
+
+// --------------------------------------------------
+// public methods
+// --------------------------------------------------
+
+bool Door::begin() {
+    pinMode(_open_pin, INPUT_PULLUP);
+    pinMode(_is_closed_pin, OUTPUT);
+    pinMode(_open_pin_knx, INPUT_PULLUP);
+    return Dotmatrix::begin();
+}
+
+void Door::update() {
+    uint32_t delta_time = millis() - _last_update_time;
+
+    if (!_opening)
+        _opening = !digitalRead(_open_pin) || !digitalRead(_open_pin_knx);
+
+    _curr_angle += (delta_time/(float)_anim_time) * PI/2 * (_opening ? 1 : -1);
+    _curr_angle = clamp<float>(_curr_angle, 0, PI/2.0);
+
+    clear();
+
+    circle(0, 7, 1, _radius, 0, _curr_angle);
+
+    uint8_t ex = round(_radius*cos(_curr_angle));
+    uint8_t ey = 7 - round(_radius*sin(_curr_angle));
+
+    drawLine(0, 7, ex, ey);
+
+    digitalWrite(_is_closed_pin, _curr_angle == 0);
+
+    if (_curr_angle >= PI/2.0 && digitalRead(_open_pin) && digitalRead(_open_pin_knx))
+        _opening = false;
+
+    _last_update_time = millis();
 }
 
 }

@@ -3,15 +3,19 @@
 
 #define CS_PIN 5
 
-knx::Blind blind(CS_PIN, 22, 21);
+//knx::Blind blind(CS_PIN, 22, 21);
+
+knx::Door door(CS_PIN, 4, LED_BUILTIN, 0);
 
 void setup() {
   Serial.begin(115200);
   delay(1000);
-  blind.begin();
+  door.begin();
+  //blind.begin();
 }
 
 void loop() {
-  blind.update();
+  door.update();
+  //blind.update();
   delay(100);
 }

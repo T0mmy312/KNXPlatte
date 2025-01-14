@@ -40,3 +40,16 @@ void Dotmatrix::drawLine(float x1, float y1, float x2, float y2, bool color) {
         i = i + 1;
     }
 }
+
+void Dotmatrix::circle(uint8_t mx, uint8_t my, bool color, float radius, float angleStart, float angleStop) {
+    if (radius == 0) {
+        setPoint(mx, my, color);
+        return;
+    }
+    float angleStep = asinf(1.0/radius);
+    for (float angle = angleStart; angle <= angleStop; angle+=angleStep) {
+        uint8_t x = round(radius*cos(angle));
+        uint8_t y = round(radius*sin(angle));
+        setPoint(x + mx, my - y, color);
+    }
+}
