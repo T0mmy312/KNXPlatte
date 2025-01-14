@@ -105,4 +105,72 @@ void Door::update() {
     _last_update_time = millis();
 }
 
+// ----------------------------------------------------------------------------------------------------
+// Weather class
+// ----------------------------------------------------------------------------------------------------
+
+// --------------------------------------------------
+// public methods
+// --------------------------------------------------
+
+void Weather::begin() {
+    pinMode(_on_pin, INPUT_PULLUP);
+    pinMode(_auto_pin, INPUT_PULLUP);
+    pinMode(_out_pin, OUTPUT);
+}
+
+uint16_t Weather::getNextStates(bool* buffer) const {
+    strcpy((char*)buffer, (const char*)_state_list);
+    return _lenght;
+}
+
+void Weather::update() {
+    bool onState = !digitalRead(_on_pin);
+    bool autoState = !digitalRead(_auto_pin);
+    if (!onState && !autoState)
+        _current_state = WeatherState::OFF;
+    else if (onState)
+        _current_state = WeatherState::ON;
+    else
+        _current_state = WeatherState::AUTO;
+
+    if (_current_state == WeatherState::OFF) {
+        fill(_off_color);
+        digitalWrite(_out_pin, LOW);
+        return;
+    }
+    else if (_current_state == WeatherState::ON) {
+        fill(_on_color);
+        digitalWrite(_out_pin, HIGH);
+        return;
+    }
+
+    if (millis() - _last_period_change >= _time_per_period) {
+        for (int i = 0; i < _lenght - 1; i++) // move up each period
+            _state_list[i] = _state_list[i + 1];
+        _state_list[_lenght - 1] = percentChance(_weather_chance); // add a new period to the back
+    }
+
+    for (int i = 0; i < _lenght; i++) {
+        if (_state_list[i])
+            setPixelColor(i, _on_color);
+        else
+            setPixelColor(i, _off_color);
+    }
+
+    show();
+}
+
+bool Weather::getCurrentState() const {
+    switch (_current_state) {
+    case WeatherState::ON:
+        return true;
+    case WeatherState::OFF:
+        return false;
+    case WeatherState::AUTO:
+        return _state_list[0];
+    }
+    return false;
+}
+
 }

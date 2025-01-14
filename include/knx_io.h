@@ -3,6 +3,7 @@
 
 #include <Arduino.h>
 #include <dotmatrix.h>
+#include <ledStrip.h>
 
 #define BLIND_HEIGHT 32
 #define BLIND_WIDTH 8
@@ -17,6 +18,14 @@ T clamp(T x, T min, T max) {
         return max;
     return x;
 }
+
+// caution, make sure you set randomSeed() like randomSeed(millis());
+bool percentChance(float percent) {
+    percent = constrain(percent, 0.0, 100.0);
+    float randomValue = random(0, 10000) / 100.0;
+    return randomValue < percent;
+}
+
 
 namespace knx {
 
@@ -103,6 +112,12 @@ namespace knx {
         
     };
 
+    enum WeatherState {
+        OFF,
+        ON,
+        AUTO
+    };
+
     // wind will have three states off / automatic / on (three pin switch)
     // on automatic it should generate random wind periods that are displayed on a led strip so you know if the netxt time segment is on or not
 
@@ -110,17 +125,59 @@ namespace knx {
 
     // rain will act the same as the wind strip
 
-    // should be able to set a segment of a total strip, because all led will be in serial
-    class LEDStrip {
-    public:
-        LEDStrip(uint16_t startIndex, uint16_t endIndex) : startIndex(startIndex), endIndex(endIndex) {}
-
-        uint16_t startIndex, endIndex;
-    };
-
     // changebale weather color plus random on time generation
-    class Weather : LEDStrip {
-        // 2 switch inputs (automatik, on), gpio relay output for knx controller (to say when its on)
+    // 2 switch inputs (automatik, on), gpio relay output for knx controller (to say when its on)
+    // caution, does not work if on color and off color are the same value
+    //! this is not tested!
+    // TODO: test this:
+    class Weather : private LEDSegment {
+    private:
+        uint16_t _lenght;
+        bool* _state_list;
+
+        uint8_t _on_pin, _auto_pin, _out_pin;
+        uint32_t _on_color, _off_color;
+        float _weather_chance; // in %
+        uint16_t _time_per_period;
+
+        uint16_t _last_period_change = 0;
+
+        WeatherState _current_state = OFF;
+
+    public:
+        Weather(uint16_t start_index, uint16_t lenght, uint8_t on_pin, uint8_t auto_pin, uint8_t out_pin, uint32_t on_color, uint32_t off_color, uint16_t time_per_period, float weather_chance = 50, Adafruit_NeoPixel* parent = &globalLedStrip)
+            : LEDSegment(start_index, lenght, parent), _lenght(lenght), _on_pin(on_pin), _auto_pin(auto_pin), _out_pin(out_pin), _on_color(on_color), _off_color(off_color), _time_per_period(time_per_period), _weather_chance(weather_chance) 
+        {
+            _state_list = (bool*)malloc(_lenght * sizeof(bool));
+            randomSeed(millis());
+        }
+        ~Weather() {
+            free(_state_list);
+        }
+        
+        void begin();
+
+        void setOnColor(uint32_t color) {_on_color = color;}
+        uint32_t getOnColor() const {return _on_color;}
+        void setOffColor(uint32_t color) {_off_color = color;}
+        uint32_t getOffColor() const {return _off_color;}
+        void setWeatherChance(float chance) {_weather_chance = chance;} // in %
+        float getWeatherChance() const {return _weather_chance;} // in %
+        void setTimePerPeriod(uint16_t time_per_period) {_time_per_period = time_per_period;}
+        uint16_t getTimePerPeriod() const {return _time_per_period;}
+        uint16_t getLenght() const {return _lenght;}
+        bool getCurrentState() const;
+
+        void setOnPin(uint8_t on_pin) {pinMode(on_pin, INPUT_PULLUP); _on_pin = on_pin;}
+        uint8_t getOnPin() const {return _on_pin;}
+        void setAutoPin(uint8_t auto_pin) {pinMode(auto_pin, INPUT_PULLUP); _auto_pin = auto_pin;}
+        uint8_t getAutoPin() const {return _auto_pin;}
+        void setOutPin(uint8_t out_pin) {pinMode(out_pin, OUTPUT); _out_pin = out_pin;}
+        uint8_t getOutPin() const {return _out_pin;}
+
+        uint16_t getNextStates(bool* buffer) const; // buffer needs to be at least getLenght() bytes long
+
+        void update();
     };
 
     class Speaker {
