@@ -20,11 +20,7 @@ T clamp(T x, T min, T max) {
 }
 
 // caution, make sure you set randomSeed() like randomSeed(millis());
-bool percentChance(float percent) {
-    percent = constrain(percent, 0.0, 100.0);
-    float randomValue = random(0, 10000) / 100.0;
-    return randomValue < percent;
-}
+bool percentChance(float percent);
 
 
 namespace knx {
@@ -105,17 +101,69 @@ namespace knx {
     };
 
     class GarageDoor : private Dotmatrix {
-        // led dot matrix that should go up or down
+    private:
+        uint8_t _closed_out_pin;
+
+        uint8_t _up_in_pin;
+        uint8_t _down_in_pin;
+
+        uint32_t _close_time; // in ms
+        float _pos = 8; // in pix
+
+        uint32_t _last_update_time = 0;
+
+    public:
+        GarageDoor(uint8_t cs_pin, uint8_t closed_out_pin, uint8_t up_in_pin, uint8_t down_in_pin, uint32_t close_time)
+            : Dotmatrix(cs_pin, 1), _closed_out_pin(closed_out_pin), _up_in_pin(up_in_pin), _down_in_pin(down_in_pin), _close_time(close_time) {}
+
+        bool begin();
+
+        void setClosedOutPin(uint8_t closed_out_pin) {_closed_out_pin = closed_out_pin; pinMode(_closed_out_pin, OUTPUT);}
+        void setUpInPin(uint8_t up_in_pin) {_up_in_pin = up_in_pin; pinMode(_up_in_pin, INPUT_PULLUP);}
+        void setDownInPin(uint8_t down_in_pin) {_down_in_pin = down_in_pin; pinMode(_down_in_pin, INPUT_PULLUP);}
+        uint8_t getClosedOutPin() const {return _closed_out_pin;}
+        uint8_t getUpInPin() const {return _up_in_pin;}
+        uint8_t getDownInPin() const {return _down_in_pin;}
+
+        void setCloseTime(uint32_t close_time) {_close_time = close_time;}
+        uint32_t getCloseTime() const {return _close_time;}
+
+        bool isClosed() const {return _pos >= 8;}
+
+        void update();
     };
 
     class Window : private Dotmatrix {
-        
-    };
+    private:
+        uint8_t _closed_pin;
+        uint8_t _open_pin;
+        uint8_t _close_pin;
 
-    enum WeatherState {
-        OFF,
-        ON,
-        AUTO
+        uint16_t _close_time;
+
+        float _focal_lenght = 8; //! check if I should let this be set
+
+        uint32_t _last_update_time = 0;
+
+        float _angle = PI / 2.0; // in rads
+
+    public:
+        Window(uint8_t cs_pin, uint8_t closed_pin, uint8_t open_pin, uint8_t close_pin, uint16_t close_time = 2000)
+            : Dotmatrix(cs_pin, 1), _closed_pin(closed_pin), _open_pin(open_pin), _close_pin(close_pin), _close_time(close_time) {}
+
+        bool begin();
+
+        void setClosedPin(uint8_t closed_pin) {_closed_pin = closed_pin; pinMode(_closed_pin, OUTPUT);}
+        void setOpenPin(uint8_t open_pin) {_open_pin = open_pin; pinMode(_open_pin, INPUT_PULLUP);}
+        void setClosePin(uint8_t close_pin) {_close_pin = close_pin; pinMode(_close_pin, INPUT_PULLUP);}
+        uint8_t getClosedPin() const {return _closed_pin;}
+        uint8_t getOpenPin() const {return _open_pin;}
+        uint8_t getClosePin() const {return _close_pin;}
+
+        void setCloseTime(uint16_t close_time) {_close_time = close_time;}
+        uint16_t getcloseTime() const {return _close_time;}
+
+        void update();
     };
 
     // wind will have three states off / automatic / on (three pin switch)
@@ -127,9 +175,13 @@ namespace knx {
 
     // changebale weather color plus random on time generation
     // 2 switch inputs (automatik, on), gpio relay output for knx controller (to say when its on)
-    // caution, does not work if on color and off color are the same value
-    //! this is not tested!
-    // TODO: test this:
+
+    enum WeatherState {
+        OFF,
+        ON,
+        AUTO
+    };
+
     class Weather : private LEDSegment {
     private:
         uint16_t _lenght;
@@ -140,17 +192,16 @@ namespace knx {
         float _weather_chance; // in %
         uint16_t _time_per_period;
 
-        uint16_t _last_period_change = 0;
+        uint16_t _time_per_on_frame;
+        uint32_t _last_frame_update = 0;
+        uint8_t _on_anim_frame = 0;
+
+        uint32_t _last_period_change = 0;
 
         WeatherState _current_state = OFF;
 
     public:
-        Weather(uint16_t start_index, uint16_t lenght, uint8_t on_pin, uint8_t auto_pin, uint8_t out_pin, uint32_t on_color, uint32_t off_color, uint16_t time_per_period, float weather_chance = 50, Adafruit_NeoPixel* parent = &globalLedStrip)
-            : LEDSegment(start_index, lenght, parent), _lenght(lenght), _on_pin(on_pin), _auto_pin(auto_pin), _out_pin(out_pin), _on_color(on_color), _off_color(off_color), _time_per_period(time_per_period), _weather_chance(weather_chance) 
-        {
-            _state_list = (bool*)malloc(_lenght * sizeof(bool));
-            randomSeed(millis());
-        }
+        Weather(uint16_t start_index, uint16_t lenght, uint8_t on_pin, uint8_t auto_pin, uint8_t out_pin, uint32_t on_color, uint32_t off_color, uint16_t time_per_period, float weather_chance = 50, uint16_t time_per_on_frame = 300, Adafruit_NeoPixel* parent = &globalLedStrip);
         ~Weather() {
             free(_state_list);
         }
@@ -178,10 +229,6 @@ namespace knx {
         uint16_t getNextStates(bool* buffer) const; // buffer needs to be at least getLenght() bytes long
 
         void update();
-    };
-
-    class Speaker {
-
     };
 }
 

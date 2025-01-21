@@ -4,7 +4,7 @@
 #include <Arduino.h>
 #include <Adafruit_NeoPixel.h>
 
-#define GLOBAL_LED_STRIP_PIN 16
+#define GLOBAL_LED_STRIP_PIN 15
 #define GLOBAL_LED_STRIP_NUM_LED 10
 
 //! Caution if global led strip is used globalLedStrip.begin(); must be called before use

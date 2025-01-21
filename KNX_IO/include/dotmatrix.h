@@ -14,6 +14,7 @@ public:
     bool setPoint(uint8_t r, uint16_t c, bool state);
     void drawLine(float x1, float y1, float x2, float y2, bool color = true);
     void circle(uint8_t mx, uint8_t my, bool color, float radius, float angleStart = 0, float angleStop = 2 * PI); // in rads
+    void fillRect(uint8_t x, uint8_t y, uint8_t w, uint8_t h, bool color = true);
 };
 
 #endif

@@ -53,3 +53,9 @@ void Dotmatrix::circle(uint8_t mx, uint8_t my, bool color, float radius, float a
         setPoint(x + mx, my - y, color);
     }
 }
+
+void Dotmatrix::fillRect(uint8_t x, uint8_t y, uint8_t w, uint8_t h, bool color) {
+    for (uint8_t cy = 0; cy < h; cy++)
+        for (uint8_t cx = 0; cx < w; cx++)
+            setPoint(x + cx, y + cy, color);
+}
