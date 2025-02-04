@@ -3,7 +3,7 @@
 #include <ledStrip.h>
 #include <speaker.h>
 
-#define CS_PIN 5
+#define CS_PIN 25
 
 #define ON_PIN 18
 #define AUTO_PIN 19
@@ -14,7 +14,7 @@
 
 //knx::Blind blind(CS_PIN, 22, 21);
 
-//knx::Door door(CS_PIN, 4, LED_BUILTIN, 0);
+knx::Door door(CS_PIN, 27, LED_BUILTIN, 35);
 
 //knx::Weather weather(0, 10, ON_PIN, AUTO_PIN, OUT_PIN, globalLedStrip.Color(0, 0, 255), globalLedStrip.Color(0, 0, 0), 5000, 60, 200);
 
@@ -29,23 +29,23 @@ void setup() {
   randomSeed(analogRead(0));
   delay(1000);
 
-  dfmp3.begin();
-  dfmp3.reset();
-  dfmp3.setVolume(12);
-  dfmp3.playFolderTrack(1, 1); // sd:/01/001.mp3
+  //dfmp3.begin();
+  //dfmp3.reset();
+  //dfmp3.setVolume(12);
+  //dfmp3.playFolderTrack(1, 1); // sd:/01/001.mp3
   //garageDoor.begin();
   //window.begin();
-  //door.begin();
+  door.begin();
   //globalLedStrip.begin();
   //weather.begin();
   //blind.begin();
 }
 
 void loop() {
-  dfmp3.loop();
+  //dfmp3.loop();
   //garageDoor.update();
   //window.update();
-  //door.update();
+  door.update();
   //blind.update();
   //weather.update();
   delay(100);

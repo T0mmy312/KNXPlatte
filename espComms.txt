@@ -1,0 +1,12 @@
+Alle GPIO inputs vom esp sind INPUT_PULLUPS (kann aber noch geändert werden)
+
+global LED strip: 1 * data pin
+4 rollos: 4 * Dotmatrix SPI (mosi, clk, cs)
+1 tür: Dotmatrix SPI (mosi, clk, cs) (1 * GPIO switch input)
+1 Tor: Dotmatrix SPI (mosi, clk, cs)
+1 Fenster: Dotmatrix SPI (mosi, clk, cs)
+2 Weather: (2 * GPIO Input (three way switch))
+1 Heitzung: nichts
+1 Rfid: rfid SPI(mosi, miso, clk, cs, rst)
+
+
