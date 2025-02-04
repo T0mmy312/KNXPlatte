@@ -1,7 +1,9 @@
 2 rollos 2 * (2 inputs)
-1 fenster 1 * (1 output)
-1 Haupttür 1 * (1 input, 1 output)
+1 heitzung 1 * (2 inputs)
+
 1 Tor 1 * (2 inputs, 1 output)
+1 Haupttür 1 * (1 input, 1 output)
+
 2 Wetter 2 * (1 output)
 1 Rfid 1 * (1 output)
-1 heitzung 1 * (2 inputs)
+1 fenster 1 * (1 output)
