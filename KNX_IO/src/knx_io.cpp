@@ -153,15 +153,14 @@ void GarageDoor::update() {
 bool Window::begin() {
     pinMode(_closed_pin, OUTPUT);
     pinMode(_open_pin, INPUT_PULLUP);
-    pinMode(_close_pin, INPUT_PULLUP);
+    //pinMode(_close_pin, INPUT_PULLUP);
     return Dotmatrix::begin();
 }
 
 void Window::update() {
     uint32_t delta_time = millis() - _last_update_time; // in ms
     bool open = !digitalRead(_open_pin);
-    bool close = !digitalRead(_close_pin);
-    _angle += (open - close) * (PI/2.0 * (delta_time / (float)_close_time));
+    _angle += (!open - open) * (PI/2.0 * (delta_time / (float)_close_time));
     _angle = clamp<float>(_angle, 0, PI/2);
 
     float x = sin(_angle) * 7; // 7 = height

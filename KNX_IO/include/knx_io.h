@@ -146,11 +146,8 @@ namespace knx {
 
     class Window : private Dotmatrix {
     private:
-        // TODO: only _closed_pin output and open/closed switch input
-
         uint8_t _closed_pin;
         uint8_t _open_pin;
-        uint8_t _close_pin;
 
         uint16_t _close_time;
 
@@ -161,17 +158,15 @@ namespace knx {
         float _angle = PI / 2.0; // in rads
 
     public:
-        Window(uint8_t cs_pin, uint8_t closed_pin, uint8_t open_pin, uint8_t close_pin, uint16_t close_time = 2000)
-            : Dotmatrix(cs_pin, 1), _closed_pin(closed_pin), _open_pin(open_pin), _close_pin(close_pin), _close_time(close_time) {}
+        Window(uint8_t cs_pin, uint8_t closed_pin, uint8_t open_pin, uint16_t close_time = 2000)
+            : Dotmatrix(cs_pin, 1), _closed_pin(closed_pin), _open_pin(open_pin), _close_time(close_time) {}
 
         bool begin();
 
         void setClosedPin(uint8_t closed_pin) {_closed_pin = closed_pin; pinMode(_closed_pin, OUTPUT);}
         void setOpenPin(uint8_t open_pin) {_open_pin = open_pin; pinMode(_open_pin, INPUT_PULLUP);}
-        void setClosePin(uint8_t close_pin) {_close_pin = close_pin; pinMode(_close_pin, INPUT_PULLUP);}
         uint8_t getClosedPin() const {return _closed_pin;}
         uint8_t getOpenPin() const {return _open_pin;}
-        uint8_t getClosePin() const {return _close_pin;}
 
         void setCloseTime(uint16_t close_time) {_close_time = close_time;}
         uint16_t getcloseTime() const {return _close_time;}

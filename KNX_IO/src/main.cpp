@@ -23,11 +23,11 @@
 
 //knx::GarageDoor garageDoor(CS_PIN, OUT_PIN, UP_PIN, DOWN_PIN, 2000);
 
-//knx::Window window(CS_PIN, OUT_PIN, UP_PIN, DOWN_PIN, 1000);
+knx::Window window(CS_PIN, OUT_PIN, UP_PIN, 1000);
 
 //DfMp3 dfmp3(Serial2);
 
-knx::Heater heater(0, 10, HEATING_PIN, COOLING_PIN, 0, 43691, 1000);
+//knx::Heater heater(0, 10, HEATING_PIN, COOLING_PIN, 0, 43691, 1000);
 
 void setup() {
   Serial.begin(115200);
@@ -40,20 +40,20 @@ void setup() {
   //dfmp3.setVolume(12);
   //dfmp3.playFolderTrack(1, 1); // sd:/01/001.mp3
   //garageDoor.begin();
-  //window.begin();
+  window.begin();
   //door.begin();
   //weather.begin();
   //blind.begin();
-  heater.begin();
+  //heater.begin();
 }
 
 void loop() {
   //dfmp3.loop();
   //garageDoor.update();
-  //window.update();
+  window.update();
   //door.update();
   //blind.update();
   //weather.update();
-  heater.update();
+  //heater.update();
   delay(100);
 }
