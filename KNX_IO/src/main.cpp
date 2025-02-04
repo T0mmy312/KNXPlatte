@@ -3,7 +3,7 @@
 #include <ledStrip.h>
 #include <speaker.h>
 
-#define CS_PIN 25
+#define CS_PIN 17
 
 #define ON_PIN 18
 #define AUTO_PIN 19
@@ -12,9 +12,12 @@
 #define UP_PIN 32
 #define DOWN_PIN 33
 
+#define HEATING_PIN 16
+#define COOLING_PIN 17
+
 //knx::Blind blind(CS_PIN, 22, 21);
 
-knx::Door door(CS_PIN, 27, LED_BUILTIN, 35);
+//knx::Door door(CS_PIN, UP_PIN, LED_BUILTIN, DOWN_PIN);
 
 //knx::Weather weather(0, 10, ON_PIN, AUTO_PIN, OUT_PIN, globalLedStrip.Color(0, 0, 255), globalLedStrip.Color(0, 0, 0), 5000, 60, 200);
 
@@ -22,12 +25,15 @@ knx::Door door(CS_PIN, 27, LED_BUILTIN, 35);
 
 //knx::Window window(CS_PIN, OUT_PIN, UP_PIN, DOWN_PIN, 1000);
 
-DfMp3 dfmp3(Serial2);
+//DfMp3 dfmp3(Serial2);
+
+knx::Heater heater(0, 10, HEATING_PIN, COOLING_PIN, 0, 43691, 1000);
 
 void setup() {
   Serial.begin(115200);
   randomSeed(analogRead(0));
   delay(1000);
+  globalLedStrip.begin();
 
   //dfmp3.begin();
   //dfmp3.reset();
@@ -35,18 +41,19 @@ void setup() {
   //dfmp3.playFolderTrack(1, 1); // sd:/01/001.mp3
   //garageDoor.begin();
   //window.begin();
-  door.begin();
-  //globalLedStrip.begin();
+  //door.begin();
   //weather.begin();
   //blind.begin();
+  heater.begin();
 }
 
 void loop() {
   //dfmp3.loop();
   //garageDoor.update();
   //window.update();
-  door.update();
+  //door.update();
   //blind.update();
   //weather.update();
+  heater.update();
   delay(100);
 }

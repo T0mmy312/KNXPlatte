@@ -284,4 +284,45 @@ bool Weather::getCurrentState() const {
     return false;
 }
 
+// ----------------------------------------------------------------------------------------------------
+// Heater class
+// ----------------------------------------------------------------------------------------------------
+
+// --------------------------------------------------
+// public methods
+// --------------------------------------------------
+
+void Heater::begin() {
+    pinMode(_heating_pin, INPUT_PULLUP);
+    pinMode(_cooling_pin, INPUT_PULLUP);
+}
+
+void Heater::update() {
+    uint32_t delta_time = millis() - _last_update_time;
+    _last_update_time = millis();
+
+    int8_t direc = !digitalRead(_heating_pin) - !digitalRead(_cooling_pin);
+
+    if (direc == 0) {
+        if (_normalized_temp < 0) {
+            _normalized_temp += (delta_time / (float)_temp_reach_time);
+            _normalized_temp = clamp<float>(_normalized_temp, -1, 0);
+        }
+        else if (_normalized_temp > 0) {
+            _normalized_temp -= (delta_time / (float)_temp_reach_time);
+            _normalized_temp = clamp<float>(_normalized_temp, 0, 1);
+        }
+    }
+    else {
+        _normalized_temp += direc * (delta_time / (float)_temp_reach_time);
+        _normalized_temp = clamp<float>(_normalized_temp, -1, 1);
+    }
+
+    uint16_t hue = lerpCircular(_heating_hue, _cooling_hue, (_normalized_temp + 1) / 2.0);
+    uint8_t val = abs(_normalized_temp) * 0xFF;
+
+    LEDSegment::fill(colorHSV(hue, 0xFF, val));
+    LEDSegment::show();
+}
+
 }

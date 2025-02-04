@@ -12,6 +12,14 @@
 // the global led strip is usefull for if you are using a single led strip for all your leds
 inline Adafruit_NeoPixel globalLedStrip(GLOBAL_LED_STRIP_NUM_LED, GLOBAL_LED_STRIP_PIN, NEO_GRB + NEO_KHZ800);
 
+inline uint32_t colorRGB(uint8_t r, uint8_t g, uint8_t b) {
+    return Adafruit_NeoPixel::Color(r, g, b);
+}
+
+inline uint32_t colorHSV(uint16_t h, uint8_t s, uint8_t v) {
+    return Adafruit_NeoPixel::ColorHSV(h, s, v);
+}
+
 // should be able to set a segment of a total strip, because all led will be in serial
 class LEDSegment {
 private:

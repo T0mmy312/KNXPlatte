@@ -19,6 +19,17 @@ T clamp(T x, T min, T max) {
     return x;
 }
 
+inline float lerp(float a, float b, float t) {
+    return a + (b - a) * t;
+}
+
+inline uint16_t lerpCircular(uint16_t a, uint16_t b, float t) {
+    int16_t diff = b - a;
+    if (diff > 32768) diff -= 65536;  // Wraparound handling
+    if (diff < -32768) diff += 65536;
+    return a + diff * t;
+}
+
 // caution, make sure you set randomSeed() like randomSeed(millis());
 bool percentChance(float percent);
 
@@ -191,7 +202,7 @@ namespace knx {
 
         uint8_t _on_pin, _auto_pin, _out_pin;
         uint32_t _on_color, _off_color;
-        float _weather_chance; // in %
+        float _weather_chance; // in %t
         uint16_t _time_per_period;
 
         uint16_t _time_per_on_frame;
@@ -233,8 +244,37 @@ namespace knx {
         void update();
     };
 
-    class Heater {
+    class Heater : private LEDSegment {
+    private:
+        uint8_t _heating_pin;
+        uint8_t _cooling_pin;
 
+        uint16_t _heating_hue;
+        uint16_t _cooling_hue;
+
+        uint32_t _temp_reach_time; // in ms
+
+        float _normalized_temp = 0; // 0 ... 1 is heating 0 ... -1 is cooling 0 is none 
+        uint32_t _last_update_time = 0;
+
+    public:
+        Heater(uint16_t start_index, uint16_t lenght, uint8_t heating_pin, uint8_t cooling_pin, uint16_t heating_hue = 0, uint16_t cooling_hue = 43691, uint32_t temp_reach_time = 3000, Adafruit_NeoPixel* parent = &globalLedStrip)
+            : LEDSegment(start_index, lenght, parent), _heating_pin(heating_pin), _cooling_pin(cooling_pin), _heating_hue(heating_hue), _cooling_hue(cooling_hue), _temp_reach_time(temp_reach_time) {}
+        
+        void setHeatingPin(uint8_t heating_pin) {_heating_pin = heating_pin; pinMode(_heating_pin, INPUT_PULLUP);}
+        uint8_t getHeatingPin() const {return _heating_pin;}
+        void setCoolingPin(uint8_t cooling_pin) {_cooling_pin = cooling_pin; pinMode(_cooling_pin, INPUT_PULLUP);}
+        uint8_t getCoolingPin() const {return _cooling_pin;}
+        void setHeatingHue(uint16_t heating_hue) {_heating_hue = heating_hue;}
+        uint16_t getHeatingHue() const {return _heating_hue;}
+        void setCoolingHue(uint16_t cooling_hue) {_cooling_hue = cooling_hue;}
+        uint16_t getCoolingHue() const {return _cooling_hue;}
+        void setTempReachTime(uint32_t temp_reach_time) {_temp_reach_time = temp_reach_time;}
+        uint32_t getTempReachTime() const {return _temp_reach_time;}
+
+        void update();
+
+        void begin();
     };
 }
 
