@@ -1,4 +1,4 @@
-24642531651467205
+24658175545141338
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -13,6 +13,13 @@ audio belton reverb
 0
 7
 7
+BOH_KNX
+DSBT2SDC24V
+DSBT2-S-DC24V-3
+Relay or Contactor
+0
+8
+8
 Battery
 BatteryClip_Keystone_54_D16-19mm
 Battery clip for batteries with a diameter between 16-19 mm: https://www.keyelco.com/product.cfm/product_id/826
@@ -64469,6 +64476,55 @@ THT
 0
 4
 2
+JST_Pins
+JST-XH-02-PACKAGE-LONG-PAD
+JST XH Connector Long Pads (Package){return}{return}Wire to board connector.  Pitch: 2,54 mm, (0.100"){return}{return}Number of pins: 2  Created by Rembrandt Electronics{return}{return}www.rembrandtelectronics.com
+
+0
+2
+2
+JST_Pins
+JST-XH-03-PACKAGE-LONG-PAD
+JST XH Connector Long Pads (Package){return}{return}Wire to board connector.  Pitch: 2,54 mm, (0.100"){return}{return}Number of pins: 3  Created by Rembrandt Electronics{return}{return}www.rembrandtelectronics.com
+
+0
+3
+3
+JST_Pins
+JST-XH-04-PACKAGE-LONG-PAD
+JST XH Connector Long Pads (Package){return}{return}Wire to board connector.  Pitch: 2,54 mm, (0.100"){return}{return}Number of pins: 4  Created by Rembrandt Electronics{return}{return}www.rembrandtelectronics.com
+
+0
+4
+4
+JST_Pins
+JST-XH-05-PACKAGE-LONG-PAD
+JST XH Connector Long Pads (Package){return}{return}Wire to board connector.  Pitch: 2,54 mm, (0.100"){return}{return}Number of pins: 5  Created by Rembrandt Electronics{return}{return}www.rembrandtelectronics.com
+
+0
+5
+5
+JST_Pins
+JST-XH-06-PACKAGE-LONG-PAD
+JST XH Connector Long Pads (Package){return}{return}Wire to board connector.  Pitch: 2,54 mm, (0.100"){return}{return}Number of pins: 6  Created by Rembrandt Electronics{return}{return}www.rembrandtelectronics.com
+
+0
+6
+6
+JST_Pins
+JST-XH-07-PACKAGE-LONG-PAD
+JST XH Connector Long Pads (Package){return}{return}Wire to board connector.  Pitch: 2,54 mm, (0.100"){return}{return}Number of pins: 7  Created by Rembrandt Electronics{return}{return}www.rembrandtelectronics.com
+
+0
+7
+7
+JST_Pins
+JST-XH-08-PACKAGE-LONG-PAD
+JST XH Connector Long Pads (Package){return}{return}Wire to board connector.  Pitch: 2,54 mm, (0.100"){return}{return}Number of pins: 8  Created by Rembrandt Electronics{return}{return}www.rembrandtelectronics.com
+
+0
+8
+8
 Jumper
 SolderJumper-2_P1.3mm_Bridged2Bar_Pad1.0x1.5mm
 SMD Solder Jumper, 1x1.5mm Pads, 0.3mm gap, bridged with 2 copper strips
@@ -90894,6 +90950,13 @@ Resistor Radial_Power series Radial pin pitch 7.37mm 10W length 16.1mm width 9mm
 0
 2
 2
+Robotik
+EAOLEDL1286GGA
+EA OLEDL128-6GGA-2
+Display
+0
+26
+26
 Rotary_Encoder
 RotaryEncoder_Alps_EC11E-Switch_Vertical_H20mm
 Alps rotary encoder, EC12E... with switch, vertical shaft, http://www.alps.com/prod/info/E/HTML/Encoder/Incremental/EC11/EC11E15204A3.html

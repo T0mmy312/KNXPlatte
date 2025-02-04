@@ -5,6 +5,285 @@
 	(uuid "bbfd86ee-d45c-40fd-938a-520c7cf16a60")
 	(paper "A4")
 	(lib_symbols
+		(symbol "BOH_KNX:DSBT2-S-DC24V"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "K"
+				(at 8.89 7.366 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+				)
+			)
+			(property "Value" "DSBT2-S-DC24V"
+				(at 8.89 4.826 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+				)
+			)
+			(property "Footprint" "DSBT2SDC24V"
+				(at 29.21 -94.92 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://media.digikey.com/pdf/Data%20Sheets/Panasonic%20Electric%20Works%20PDFs/DS-BT%20Relays.pdf"
+				(at 29.21 -194.92 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(property "Description" "RELAY GEN PURPOSE DPDT 2A 24VDC"
+				(at 17.78 -11.684 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Height" "10.8"
+				(at 29.21 -394.92 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(property "Manufacturer_Name" "Panasonic"
+				(at 29.21 -494.92 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(property "Manufacturer_Part_Number" "DSBT2-S-DC24V"
+				(at 29.21 -594.92 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(property "Mouser Part Number" ""
+				(at 29.21 -694.92 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(property "Mouser Price/Stock" ""
+				(at 29.21 -794.92 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(property "Arrow Part Number" ""
+				(at 29.21 -894.92 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(property "Arrow Price/Stock" ""
+				(at 29.21 -994.92 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(symbol "DSBT2-S-DC24V_1_1"
+				(rectangle
+					(start 5.08 2.54)
+					(end 27.94 -10.16)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin passive line
+					(at 0 0 0)
+					(length 5.08)
+					(name "COIL+"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 33.02 -7.62 180)
+					(length 5.08)
+					(name "N.C._2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "11"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -5.08 0)
+					(length 5.08)
+					(name "COM_2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "13"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -2.54 0)
+					(length 5.08)
+					(name "COIL-"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "16"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -7.62 0)
+					(length 5.08)
+					(name "COM_1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 33.02 -5.08 180)
+					(length 5.08)
+					(name "N.C._1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 33.02 0 180)
+					(length 5.08)
+					(name "N.O._1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "8"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 33.02 -2.54 180)
+					(length 5.08)
+					(name "N.O._2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "9"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
 		(symbol "Device:D"
 			(pin_numbers hide)
 			(pin_names
@@ -159,336 +438,6 @@
 						)
 					)
 					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-		)
-		(symbol "Relay:FINDER-40.41"
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "K"
-				(at 11.43 3.81 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Value" "FINDER-40.41"
-				(at 11.43 1.27 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Footprint" "Relay_THT:Relay_SPDT_Finder_40.41"
-				(at 28.956 -1.016 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "https://www.finder-relais.net/de/finder-relais-serie-40.pdf"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "PCB SPDT relay, 10A"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "Single Pole Relay SPDT Finder"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_fp_filters" "Relay*SPDT*Finder*40.41*"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "FINDER-40.41_0_0"
-				(polyline
-					(pts
-						(xy 7.62 5.08) (xy 7.62 2.54) (xy 6.985 3.175) (xy 7.62 3.81)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "FINDER-40.41_0_1"
-				(rectangle
-					(start -10.16 5.08)
-					(end 10.16 -5.08)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-				(rectangle
-					(start -8.255 1.905)
-					(end -1.905 -1.905)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -7.62 -1.905) (xy -2.54 1.905)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -5.08 -5.08) (xy -5.08 -1.905)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -5.08 5.08) (xy -5.08 1.905)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -1.905 0) (xy -1.27 0)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -0.635 0) (xy 0 0)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0.635 0) (xy 1.27 0)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 1.905 0) (xy 2.54 0)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 3.175 0) (xy 3.81 0)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 5.08 -2.54) (xy 3.175 3.81)
-					)
-					(stroke
-						(width 0.508)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 5.08 -2.54) (xy 5.08 -5.08)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.54 5.08) (xy 2.54 2.54) (xy 3.175 3.175) (xy 2.54 3.81)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-			)
-			(symbol "FINDER-40.41_1_1"
-				(pin passive line
-					(at 5.08 -7.62 90)
-					(length 2.54)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "11"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 2.54 7.62 270)
-					(length 2.54)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "12"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 7.62 7.62 270)
-					(length 2.54)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "14"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at -5.08 7.62 270)
-					(length 2.54)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "A1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at -5.08 -7.62 90)
-					(length 2.54)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "A2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -918,20 +867,42 @@
 		)
 	)
 	(junction
-		(at 139.7 87.63)
+		(at 139.7 88.9)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "958f0b11-7367-44e1-9be0-849c3bb18b8c")
+		(uuid "10a4249e-7534-45ae-9fa3-81ddde6f6f12")
 	)
 	(junction
-		(at 139.7 102.87)
+		(at 148.59 100.33)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "f065cd5a-1b9f-449d-85df-e12e1890eda3")
+		(uuid "393dc555-895d-4172-b8bf-c8fc0b0a7889")
+	)
+	(junction
+		(at 139.7 99.06)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "3bba9320-2655-4ee5-be27-0d0863024be1")
+	)
+	(junction
+		(at 185.42 93.98)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "72d00a07-cf5b-47b9-ad5c-34d4ac193053")
 	)
 	(wire
 		(pts
-			(xy 128.27 85.09) (xy 128.27 88.9)
+			(xy 185.42 97.79) (xy 185.42 100.33)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0110dfc9-829c-442d-9829-163da1eab1ba")
+	)
+	(wire
+		(pts
+			(xy 139.7 85.09) (xy 139.7 88.9)
 		)
 		(stroke
 			(width 0)
@@ -941,7 +912,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 90.17) (xy 139.7 87.63)
+			(xy 139.7 90.17) (xy 139.7 88.9)
 		)
 		(stroke
 			(width 0)
@@ -951,7 +922,17 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 102.87) (xy 139.7 97.79)
+			(xy 127 80.01) (xy 132.08 80.01)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "14b6e46d-8ae4-4849-9b1a-02f3d429ccd6")
+	)
+	(wire
+		(pts
+			(xy 139.7 97.79) (xy 139.7 99.06)
 		)
 		(stroke
 			(width 0)
@@ -961,57 +942,97 @@
 	)
 	(wire
 		(pts
-			(xy 128.27 100.33) (xy 134.62 100.33)
+			(xy 182.88 100.33) (xy 185.42 100.33)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "1e47466f-f4d7-4723-b7e1-f94cfa4480d2")
+		(uuid "1b2eb75f-412a-483a-a324-559ffe8d2397")
 	)
 	(wire
 		(pts
-			(xy 139.7 85.09) (xy 148.59 85.09)
+			(xy 146.05 92.71) (xy 146.05 88.9)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "29ec5e53-51b5-46fe-a573-62e8eb24f247")
+		(uuid "23b9b1d5-e821-43be-b0d9-c6ca4329b135")
 	)
 	(wire
 		(pts
-			(xy 148.59 101.6) (xy 148.59 102.87)
+			(xy 182.88 97.79) (xy 185.42 97.79)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "315a6879-e4ae-4a75-9289-f00a9782769f")
+		(uuid "31616577-abb4-44a6-8549-b4b1d9043494")
 	)
 	(wire
 		(pts
-			(xy 116.84 93.98) (xy 120.65 93.98)
+			(xy 146.05 92.71) (xy 149.86 92.71)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "615f2347-dfec-4e96-b914-47b2639b5ea7")
+		(uuid "405fb73f-d0ae-4cce-8535-11df19e5b16e")
 	)
 	(wire
 		(pts
-			(xy 128.27 99.06) (xy 128.27 100.33)
+			(xy 139.7 71.12) (xy 139.7 74.93)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "8c149684-804f-4a01-b7cb-e1e76f7cd4f2")
+		(uuid "4374416b-52cc-47f0-bb62-0edb37870ea0")
 	)
 	(wire
 		(pts
-			(xy 158.75 104.14) (xy 162.56 104.14)
+			(xy 182.88 92.71) (xy 185.42 92.71)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "514089d3-306e-4c68-b4b9-e09d3eb270ae")
+	)
+	(wire
+		(pts
+			(xy 182.88 95.25) (xy 185.42 95.25)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5bc0484c-b779-4d24-87b1-15fd6af557f6")
+	)
+	(wire
+		(pts
+			(xy 139.7 88.9) (xy 146.05 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "67deba13-9e14-4fab-8e49-caab0de8bc55")
+	)
+	(wire
+		(pts
+			(xy 185.42 93.98) (xy 185.42 92.71)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "92e65633-9877-407e-b801-f2303f4079a0")
+	)
+	(wire
+		(pts
+			(xy 148.59 107.95) (xy 152.4 107.95)
 		)
 		(stroke
 			(width 0)
@@ -1021,7 +1042,17 @@
 	)
 	(wire
 		(pts
-			(xy 158.75 101.6) (xy 158.75 104.14)
+			(xy 149.86 97.79) (xy 148.59 97.79)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "98578340-4ad5-4317-ae99-87baa4ec384f")
+	)
+	(wire
+		(pts
+			(xy 148.59 100.33) (xy 148.59 107.95)
 		)
 		(stroke
 			(width 0)
@@ -1031,77 +1062,77 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 102.87) (xy 148.59 102.87)
+			(xy 146.05 95.25) (xy 146.05 99.06)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "ad013271-5f3e-4d7f-be48-667eb17f2f76")
+		(uuid "b5335ad6-feec-4f0d-9526-a2f31cbcd9f1")
 	)
 	(wire
 		(pts
-			(xy 134.62 100.33) (xy 134.62 87.63)
+			(xy 148.59 97.79) (xy 148.59 100.33)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "b3b0feaa-2488-4bf7-b405-328d50c572db")
+		(uuid "c1c81f95-0dbb-487a-85b8-2a27eaeb67cb")
 	)
 	(wire
 		(pts
-			(xy 148.59 85.09) (xy 148.59 86.36)
+			(xy 148.59 100.33) (xy 149.86 100.33)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "b7e0a8ea-7821-4f8a-9049-3ba7266266ff")
+		(uuid "c5674154-cbda-4722-bbd3-7b63468140e9")
 	)
 	(wire
 		(pts
-			(xy 139.7 102.87) (xy 139.7 105.41)
+			(xy 149.86 95.25) (xy 146.05 95.25)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "bccd3206-e2b2-4dd7-ba63-e4aa20f3089d")
+		(uuid "df6c0f7c-382f-4108-a9d7-66c8d0e847dc")
 	)
 	(wire
 		(pts
-			(xy 134.62 87.63) (xy 139.7 87.63)
+			(xy 146.05 99.06) (xy 139.7 99.06)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "c72f1cd9-adb7-4228-82a9-7b7dac610984")
+		(uuid "dfd9206c-4a7b-48cf-ba46-9f11ffd3009b")
 	)
 	(wire
 		(pts
-			(xy 156.21 83.82) (xy 156.21 86.36)
+			(xy 185.42 95.25) (xy 185.42 93.98)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "c8135935-7fca-4d9e-ac54-1d000669a719")
+		(uuid "e671ff5a-c5dd-414c-b29b-28f01d86b42a")
 	)
 	(wire
 		(pts
-			(xy 139.7 87.63) (xy 139.7 85.09)
+			(xy 139.7 99.06) (xy 139.7 105.41)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "f2eaa569-ee1e-40c0-a92f-54a3b7876bb6")
+		(uuid "f78a83f3-697b-4b96-9039-c023f55418e1")
 	)
 	(wire
 		(pts
-			(xy 156.21 83.82) (xy 162.56 83.82)
+			(xy 185.42 93.98) (xy 189.23 93.98)
 		)
 		(stroke
 			(width 0)
@@ -1111,7 +1142,7 @@
 	)
 	(hierarchical_label "Relais_OUT"
 		(shape output)
-		(at 162.56 83.82 0)
+		(at 189.23 93.98 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1122,7 +1153,7 @@
 	)
 	(hierarchical_label "Relais_IN"
 		(shape input)
-		(at 116.84 93.98 180)
+		(at 127 80.01 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1133,7 +1164,7 @@
 	)
 	(hierarchical_label "Relais_COM"
 		(shape input)
-		(at 162.56 104.14 0)
+		(at 152.4 107.95 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1144,7 +1175,7 @@
 	)
 	(symbol
 		(lib_id "power:+5V")
-		(at 128.27 85.09 0)
+		(at 139.7 71.12 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -1153,7 +1184,7 @@
 		(fields_autoplaced yes)
 		(uuid "483bd8be-2400-4f0c-83af-0817f4fcd074")
 		(property "Reference" "#PWR011"
-			(at 128.27 88.9 0)
+			(at 139.7 74.93 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1162,7 +1193,7 @@
 			)
 		)
 		(property "Value" "+5V"
-			(at 128.27 80.01 0)
+			(at 139.7 66.04 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1170,7 +1201,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 128.27 85.09 0)
+			(at 139.7 71.12 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1179,7 +1210,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 128.27 85.09 0)
+			(at 139.7 71.12 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1188,7 +1219,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+5V\""
-			(at 128.27 85.09 0)
+			(at 139.7 71.12 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1197,36 +1228,32 @@
 			)
 		)
 		(pin "1"
-			(uuid "d86c3a48-82f2-4e5a-b04e-ceb628ac3662")
+			(uuid "d1649c75-f4ea-44b8-8ab7-1e5844bce450")
 		)
 		(instances
 			(project "KNX_BOH"
-				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/05f4e4cb-9b44-4804-b54f-280ddefa0e60"
-					(reference "#PWR03")
+				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/407f3b0d-1d5b-4938-adfd-14e10c51a49b"
+					(reference "#PWR07")
 					(unit 1)
 				)
-				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/0db31d72-d631-4f32-808d-26fc31d10c5d"
-					(reference "#PWR05")
-					(unit 1)
-				)
-				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/474ecbd2-d32f-4b38-a12c-8eeb2ab87bc5"
-					(reference "#PWR014")
+				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/615f9b03-ead0-48b3-9e7d-1429cc2f63d2"
+					(reference "#PWR012")
 					(unit 1)
 				)
 				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/7258e371-c191-41a9-8ca4-e26e9b600aa4"
 					(reference "#PWR011")
 					(unit 1)
 				)
-				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/7510a848-0548-41f1-9a76-714b06d41ab2"
-					(reference "#PWR07")
+				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/7765249a-f9d6-493a-b8f2-7be87071583d"
+					(reference "#PWR03")
 					(unit 1)
 				)
-				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/b32609f6-ba43-4c15-9f6c-2bf5acdc6e76"
-					(reference "#PWR012")
-					(unit 1)
-				)
-				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/d6910474-26bc-4b9b-a670-d3e5771dc9f1"
+				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/b5e93a96-c69a-40a0-9e39-b237f7d38508"
 					(reference "#PWR09")
+					(unit 1)
+				)
+				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/faa3af65-5a47-4567-ba18-15779ac1cc75"
+					(reference "#PWR05")
 					(unit 1)
 				)
 			)
@@ -1306,39 +1333,35 @@
 			)
 		)
 		(pin "2"
-			(uuid "55d25770-4e60-4916-9c58-cd9b23f08eb3")
+			(uuid "b20f76aa-7395-4e82-a4dd-edbb3a66b656")
 		)
 		(pin "1"
-			(uuid "d22fb647-4670-4255-8ee5-560776041b6f")
+			(uuid "fd045b93-0392-4ac8-bd41-271448906424")
 		)
 		(instances
 			(project "KNX_BOH"
-				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/05f4e4cb-9b44-4804-b54f-280ddefa0e60"
-					(reference "D1")
+				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/407f3b0d-1d5b-4938-adfd-14e10c51a49b"
+					(reference "D3")
 					(unit 1)
 				)
-				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/0db31d72-d631-4f32-808d-26fc31d10c5d"
-					(reference "D2")
-					(unit 1)
-				)
-				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/474ecbd2-d32f-4b38-a12c-8eeb2ab87bc5"
-					(reference "D7")
+				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/615f9b03-ead0-48b3-9e7d-1429cc2f63d2"
+					(reference "D6")
 					(unit 1)
 				)
 				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/7258e371-c191-41a9-8ca4-e26e9b600aa4"
 					(reference "D5")
 					(unit 1)
 				)
-				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/7510a848-0548-41f1-9a76-714b06d41ab2"
-					(reference "D3")
+				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/7765249a-f9d6-493a-b8f2-7be87071583d"
+					(reference "D1")
 					(unit 1)
 				)
-				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/b32609f6-ba43-4c15-9f6c-2bf5acdc6e76"
-					(reference "D6")
-					(unit 1)
-				)
-				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/d6910474-26bc-4b9b-a670-d3e5771dc9f1"
+				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/b5e93a96-c69a-40a0-9e39-b237f7d38508"
 					(reference "D4")
+					(unit 1)
+				)
+				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/faa3af65-5a47-4567-ba18-15779ac1cc75"
+					(reference "D2")
 					(unit 1)
 				)
 			)
@@ -1346,7 +1369,7 @@
 	)
 	(symbol
 		(lib_id "Transistor_BJT:BC547")
-		(at 125.73 93.98 0)
+		(at 137.16 80.01 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -1355,7 +1378,7 @@
 		(fields_autoplaced yes)
 		(uuid "7841a6ff-51c7-493d-a32e-bc348841737d")
 		(property "Reference" "Q5"
-			(at 130.81 92.7099 0)
+			(at 142.24 78.7399 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1364,7 +1387,7 @@
 			)
 		)
 		(property "Value" "BC547"
-			(at 130.81 95.2499 0)
+			(at 142.24 81.2799 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1373,7 +1396,7 @@
 			)
 		)
 		(property "Footprint" "Package_TO_SOT_THT:TO-92_Inline"
-			(at 130.81 95.885 0)
+			(at 142.24 81.915 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1384,7 +1407,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.onsemi.com/pub/Collateral/BC550-D.pdf"
-			(at 125.73 93.98 0)
+			(at 137.16 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1394,7 +1417,7 @@
 			)
 		)
 		(property "Description" "0.1A Ic, 45V Vce, Small Signal NPN Transistor, TO-92"
-			(at 125.73 93.98 0)
+			(at 137.16 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1403,77 +1426,91 @@
 			)
 		)
 		(pin "3"
-			(uuid "b40ee65c-e3f5-4b10-90c8-d8ca7245e4ff")
+			(uuid "1a21b420-93d9-4e3f-ace6-ca8babaf71a0")
 		)
 		(pin "1"
-			(uuid "9dbb2116-76a2-4ca7-93d5-c2266428af96")
+			(uuid "7ed621d1-eadb-4f9e-9b80-1215f07bb085")
 		)
 		(pin "2"
-			(uuid "73389ad3-5a01-4f65-8094-7db513577e97")
+			(uuid "0ee57fd8-544d-46b6-9199-54edc6c7ef94")
 		)
 		(instances
 			(project "KNX_BOH"
-				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/05f4e4cb-9b44-4804-b54f-280ddefa0e60"
-					(reference "Q1")
+				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/407f3b0d-1d5b-4938-adfd-14e10c51a49b"
+					(reference "Q3")
 					(unit 1)
 				)
-				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/0db31d72-d631-4f32-808d-26fc31d10c5d"
-					(reference "Q2")
-					(unit 1)
-				)
-				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/474ecbd2-d32f-4b38-a12c-8eeb2ab87bc5"
-					(reference "Q7")
+				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/615f9b03-ead0-48b3-9e7d-1429cc2f63d2"
+					(reference "Q6")
 					(unit 1)
 				)
 				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/7258e371-c191-41a9-8ca4-e26e9b600aa4"
 					(reference "Q5")
 					(unit 1)
 				)
-				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/7510a848-0548-41f1-9a76-714b06d41ab2"
-					(reference "Q3")
+				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/7765249a-f9d6-493a-b8f2-7be87071583d"
+					(reference "Q1")
 					(unit 1)
 				)
-				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/b32609f6-ba43-4c15-9f6c-2bf5acdc6e76"
-					(reference "Q6")
-					(unit 1)
-				)
-				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/d6910474-26bc-4b9b-a670-d3e5771dc9f1"
+				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/b5e93a96-c69a-40a0-9e39-b237f7d38508"
 					(reference "Q4")
+					(unit 1)
+				)
+				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/faa3af65-5a47-4567-ba18-15779ac1cc75"
+					(reference "Q2")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "Relay:FINDER-40.41")
-		(at 153.67 93.98 0)
+		(lib_id "BOH_KNX:DSBT2-S-DC24V")
+		(at 149.86 92.71 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "a22221c9-d72a-4b9f-93f8-80ac94d49c54")
-		(property "Reference" "K5"
-			(at 165.1 92.7099 0)
+		(uuid "826240f4-8217-4800-809b-cd8e329f043f")
+		(property "Reference" "K4"
+			(at 166.37 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
-		(property "Value" "FINDER-40.41"
-			(at 165.1 95.2499 0)
+		(property "Value" "DSBT2-S-DC24V"
+			(at 166.37 87.63 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
-		(property "Footprint" "Relay_THT:Relay_SPDT_Finder_40.41"
-			(at 182.626 94.996 0)
+		(property "Footprint" "DSBT2SDC24V"
+			(at 179.07 187.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://media.digikey.com/pdf/Data%20Sheets/Panasonic%20Electric%20Works%20PDFs/DS-BT%20Relays.pdf"
+			(at 179.07 287.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RELAY GEN PURPOSE DPDT 2A 24VDC"
+			(at 167.64 104.394 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1481,67 +1518,124 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://www.finder-relais.net/de/finder-relais-serie-40.pdf"
-			(at 153.67 93.98 0)
+		(property "Height" "10.8"
+			(at 179.07 487.63 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left top)
 				(hide yes)
 			)
 		)
-		(property "Description" "PCB SPDT relay, 10A"
-			(at 153.67 93.98 0)
+		(property "Manufacturer_Name" "Panasonic"
+			(at 179.07 587.63 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left top)
 				(hide yes)
 			)
 		)
-		(pin "14"
-			(uuid "906a9722-f202-4952-a61c-9636a931cf8e")
+		(property "Manufacturer_Part_Number" "DSBT2-S-DC24V"
+			(at 179.07 687.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
 		)
-		(pin "A2"
-			(uuid "4bbb4d0c-aeae-4035-bb48-8f4badb22a1b")
+		(property "Mouser Part Number" ""
+			(at 179.07 787.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Mouser Price/Stock" ""
+			(at 179.07 887.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Arrow Part Number" ""
+			(at 179.07 987.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Arrow Price/Stock" ""
+			(at 179.07 1087.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(pin "13"
+			(uuid "38159146-2c7d-4a26-8fb3-feba78ed82f2")
 		)
 		(pin "11"
-			(uuid "ea654416-f217-4ad8-9ac5-3192ef4a8574")
+			(uuid "48d34ac1-138f-419e-b491-05ec498b8ed0")
 		)
-		(pin "12"
-			(uuid "71d3e901-446e-4edc-bf3f-3047fc426c39")
+		(pin "16"
+			(uuid "91ebb826-8922-4e40-8a48-5c051f5f9d24")
 		)
-		(pin "A1"
-			(uuid "39b6d5c5-07d3-44ea-a3be-4042b8efcb76")
+		(pin "1"
+			(uuid "c07d4115-7261-4bee-9a8d-9204999b041c")
+		)
+		(pin "4"
+			(uuid "2a2e58b2-1c0b-4a02-a19a-661880d3cb67")
+		)
+		(pin "6"
+			(uuid "ff00b51f-b7d3-4668-9f30-978754bc85e1")
+		)
+		(pin "8"
+			(uuid "54dca4cc-09ca-4121-b9b5-ba0ec9150213")
+		)
+		(pin "9"
+			(uuid "68e726b5-4bf8-49df-8996-f8f127ff6c0b")
 		)
 		(instances
-			(project "KNX_BOH"
-				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/05f4e4cb-9b44-4804-b54f-280ddefa0e60"
-					(reference "K1")
+			(project ""
+				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/407f3b0d-1d5b-4938-adfd-14e10c51a49b"
+					(reference "K4")
 					(unit 1)
 				)
-				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/0db31d72-d631-4f32-808d-26fc31d10c5d"
-					(reference "K2")
-					(unit 1)
-				)
-				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/474ecbd2-d32f-4b38-a12c-8eeb2ab87bc5"
-					(reference "K7")
-					(unit 1)
-				)
-				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/7258e371-c191-41a9-8ca4-e26e9b600aa4"
-					(reference "K5")
-					(unit 1)
-				)
-				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/7510a848-0548-41f1-9a76-714b06d41ab2"
-					(reference "K3")
-					(unit 1)
-				)
-				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/b32609f6-ba43-4c15-9f6c-2bf5acdc6e76"
+				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/615f9b03-ead0-48b3-9e7d-1429cc2f63d2"
 					(reference "K6")
 					(unit 1)
 				)
-				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/d6910474-26bc-4b9b-a670-d3e5771dc9f1"
-					(reference "K4")
+				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/7258e371-c191-41a9-8ca4-e26e9b600aa4"
+					(reference "K1")
+					(unit 1)
+				)
+				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/7765249a-f9d6-493a-b8f2-7be87071583d"
+					(reference "K2")
+					(unit 1)
+				)
+				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/b5e93a96-c69a-40a0-9e39-b237f7d38508"
+					(reference "K5")
+					(unit 1)
+				)
+				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/faa3af65-5a47-4567-ba18-15779ac1cc75"
+					(reference "K3")
 					(unit 1)
 				)
 			)
@@ -1603,36 +1697,32 @@
 			)
 		)
 		(pin "1"
-			(uuid "d6ae4045-5804-4325-a08d-7e67f89e27b6")
+			(uuid "96e574e0-9f91-4a08-b60d-974e64ec299b")
 		)
 		(instances
 			(project "KNX_BOH"
-				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/05f4e4cb-9b44-4804-b54f-280ddefa0e60"
-					(reference "#PWR04")
+				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/407f3b0d-1d5b-4938-adfd-14e10c51a49b"
+					(reference "#PWR08")
 					(unit 1)
 				)
-				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/0db31d72-d631-4f32-808d-26fc31d10c5d"
-					(reference "#PWR06")
-					(unit 1)
-				)
-				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/474ecbd2-d32f-4b38-a12c-8eeb2ab87bc5"
-					(reference "#PWR016")
+				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/615f9b03-ead0-48b3-9e7d-1429cc2f63d2"
+					(reference "#PWR013")
 					(unit 1)
 				)
 				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/7258e371-c191-41a9-8ca4-e26e9b600aa4"
 					(reference "#PWR015")
 					(unit 1)
 				)
-				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/7510a848-0548-41f1-9a76-714b06d41ab2"
-					(reference "#PWR08")
+				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/7765249a-f9d6-493a-b8f2-7be87071583d"
+					(reference "#PWR04")
 					(unit 1)
 				)
-				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/b32609f6-ba43-4c15-9f6c-2bf5acdc6e76"
-					(reference "#PWR013")
-					(unit 1)
-				)
-				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/d6910474-26bc-4b9b-a670-d3e5771dc9f1"
+				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/b5e93a96-c69a-40a0-9e39-b237f7d38508"
 					(reference "#PWR010")
+					(unit 1)
+				)
+				(path "/342ae910-4251-4038-9a84-6bf1ece5f28b/faa3af65-5a47-4567-ba18-15779ac1cc75"
+					(reference "#PWR06")
 					(unit 1)
 				)
 			)
