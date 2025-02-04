@@ -135,6 +135,8 @@ namespace knx {
 
     class Window : private Dotmatrix {
     private:
+        // TODO: only _closed_pin output and open/closed switch input
+
         uint8_t _closed_pin;
         uint8_t _open_pin;
         uint8_t _close_pin;
@@ -229,6 +231,10 @@ namespace knx {
         uint16_t getNextStates(bool* buffer) const; // buffer needs to be at least getLenght() bytes long
 
         void update();
+    };
+
+    class Heater {
+
     };
 }
 
