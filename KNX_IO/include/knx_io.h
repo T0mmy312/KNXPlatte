@@ -4,11 +4,16 @@
 #include <Arduino.h>
 #include <dotmatrix.h>
 #include <ledStrip.h>
+#include <SPI.h>
+#include <MFRC522.h>
+#include <string.h>
 
 #define BLIND_HEIGHT 32
 #define BLIND_WIDTH 8
 
-#define BLIND_NUM_DEVICES 4
+#define RFID_LED_COUNT 16
+#define RFID_LED_TIME 15
+#define RFID_READ_TIME 100
 
 template <typename T>
 T clamp(T x, T min, T max) {
@@ -33,13 +38,15 @@ inline uint16_t lerpCircular(uint16_t a, uint16_t b, float t) {
 // caution, make sure you set randomSeed() like randomSeed(millis());
 bool percentChance(float percent);
 
+bool operator==(const MFRC522::Uid& lhs, const MFRC522::Uid& rhs);
+bool operator!=(const MFRC522::Uid& lhs, const MFRC522::Uid& rhs);
 
 namespace knx {
 
     // each Blind consits of n 8x8 dotmatrixes (editable through the BLIND_NUM_DEVICES define (default 2))
     // BLIND_HEIGHT and BLIND_WIDTH should be set according to BLIND_NUM_DEVICES
     // CLK and data pins are SPI CLK and MOSI pins
-    class Blind : private Dotmatrix {
+    class Blind : private LocalDotmatrix {
     private:
         uint8_t _up_pin; // input for the up signal
         uint8_t _down_pin; // input for the down signal
@@ -57,10 +64,10 @@ namespace knx {
         uint16_t _timeContinuslyGoingUp = 0;
 
     public:
-        Blind(uint8_t cs_pin, uint8_t up_pin, uint8_t down_pin, uint16_t closeTime = 5000, uint16_t lamellaTurnoverTime = 3000, uint8_t blindSize = 3) 
-            : Dotmatrix(cs_pin, BLIND_NUM_DEVICES), _up_pin(up_pin), _down_pin(down_pin), _closeTime(closeTime), _lamellaTurnoverTime(lamellaTurnoverTime), _blindSize(blindSize) {}
+        Blind(uint8_t topLeftX, uint8_t topLeftY, uint8_t up_pin, uint8_t down_pin, uint16_t closeTime = 5000, uint16_t lamellaTurnoverTime = 3000, uint8_t blindSize = 3, Dotmatrix* parent = &globalDotmatrix) 
+            : LocalDotmatrix(topLeftX, topLeftY, BLIND_WIDTH, BLIND_HEIGHT, parent), _up_pin(up_pin), _down_pin(down_pin), _closeTime(closeTime), _lamellaTurnoverTime(lamellaTurnoverTime), _blindSize(blindSize) {}
 
-        bool begin();
+        void begin();
 
         void setUpPin(uint8_t up_pin) {pinMode(up_pin, INPUT_PULLUP); _up_pin = up_pin;}
         uint8_t getUpPin() const {return _up_pin;}
@@ -124,7 +131,7 @@ namespace knx {
         uint32_t _last_update_time = 0;
 
     public:
-        GarageDoor(uint8_t cs_pin, uint8_t closed_out_pin, uint8_t up_in_pin, uint8_t down_in_pin, uint32_t close_time)
+        GarageDoor(uint8_t cs_pin, uint8_t closed_out_pin, uint8_t up_in_pin, uint8_t down_in_pin, uint32_t close_time = 5000)
             : Dotmatrix(cs_pin, 1), _closed_out_pin(closed_out_pin), _up_in_pin(up_in_pin), _down_in_pin(down_in_pin), _close_time(close_time) {}
 
         bool begin();
@@ -270,6 +277,35 @@ namespace knx {
         void update();
 
         void begin();
+    };
+
+    class RFID {
+    public:
+        RFID(uint8_t ssPin, uint8_t rstPin, MFRC522::Uid* allowed, uint8_t allowed_size, uint8_t output_pin)
+            : _ssPin(ssPin), _rstPin(rstPin), _allowed(allowed), _allowed_size(allowed_size), _output_pin(output_pin), _ledSegment(0, RFID_LED_COUNT) {}
+
+        void begin();
+        void update();
+
+        void startAnimation(bool allowed);
+
+        void doAnimation();
+
+    private:
+        uint8_t _ssPin;
+        uint8_t _rstPin;
+        uint8_t _output_pin;
+        MFRC522::Uid* _allowed;
+        uint8_t _allowed_size;
+        MFRC522 _mfrc522;
+        uint32_t _last_read = 0;
+
+        LEDSegment _ledSegment;
+        bool _animation = false;
+        bool _allowed_animation;
+        int8_t _on_led;
+        bool _on_way_back;
+        uint32_t _last_led_change = 0;
     };
 }
 

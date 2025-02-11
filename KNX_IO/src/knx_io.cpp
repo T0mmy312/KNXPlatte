@@ -20,10 +20,9 @@ namespace knx {
 // public methods
 // --------------------------------------------------
 
-bool Blind::begin() {
+void Blind::begin() {
     pinMode(_up_pin, INPUT_PULLUP);
     pinMode(_down_pin, INPUT_PULLUP);
-    return Dotmatrix::begin();
 }
 
 void Blind::setCloseTime(uint16_t closeTime) {
