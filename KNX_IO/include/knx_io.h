@@ -47,8 +47,8 @@ namespace knx {
     // CLK and data pins are SPI CLK and MOSI pins
     class Blind : private LocalDotmatrix {
     private:
-        uint8_t _up_pin; // input for the up signal
-        uint8_t _down_pin; // input for the down signal
+        bool (*_up_input)(void); // input for the up signal
+        bool (*_down_input)(void); // input for the down signal
 
         uint16_t _closeTime; // time needed for the blinds to close completely
         uint16_t _lamellaTurnoverTime;
@@ -63,15 +63,11 @@ namespace knx {
         uint16_t _timeContinuslyGoingUp = 0;
 
     public:
-        Blind(uint8_t topLeftX, uint8_t topLeftY, uint8_t up_pin, uint8_t down_pin, uint16_t closeTime = 5000, uint16_t lamellaTurnoverTime = 3000, uint8_t blindSize = 3, Dotmatrix* parent = &globalDotmatrix) 
-            : LocalDotmatrix(topLeftX, topLeftY, BLIND_WIDTH, BLIND_HEIGHT, parent), _up_pin(up_pin), _down_pin(down_pin), _closeTime(closeTime), _lamellaTurnoverTime(lamellaTurnoverTime), _blindSize(blindSize) {}
+        Blind(uint8_t topLeftX, uint8_t topLeftY, bool (*up_input)(void), bool (*down_input)(void), uint16_t closeTime = 5000, uint16_t lamellaTurnoverTime = 3000, uint8_t blindSize = 3, Dotmatrix* parent = &globalDotmatrix) 
+            : LocalDotmatrix(topLeftX, topLeftY, BLIND_WIDTH, BLIND_HEIGHT, parent), _up_input(up_input), _down_input(down_input), _closeTime(closeTime), _lamellaTurnoverTime(lamellaTurnoverTime), _blindSize(blindSize) {}
 
-        void begin();
-
-        void setUpPin(uint8_t up_pin) {pinMode(up_pin, INPUT_PULLUP); _up_pin = up_pin;}
-        uint8_t getUpPin() const {return _up_pin;}
-        void setDownPin(uint8_t down_pin) {pinMode(down_pin, INPUT_PULLUP); _down_pin = down_pin;}
-        uint8_t getDownPin() const {return _down_pin;}
+        void setUpInput(bool (*up_input)(void)) {_up_input = up_input;}
+        void setDownInput(bool (*down_input)(void)) {_down_input = down_input;}
 
         void setCloseTime(uint16_t closeTime); // in ms
         uint16_t getCloseTime() const {return _closeTime;} // in ms
@@ -85,7 +81,9 @@ namespace knx {
 
     class Door : private LocalDotmatrix {
     private:
-        uint8_t _open_pin, _is_closed_pin, _open_pin_knx;
+        bool (*_open_input)(void); // input for the open signal
+        bool (*_open_knx_input)(void); // input for the open signal from the KNX controller
+        uint8_t _is_closed_pin;
         uint16_t _anim_time;
         uint8_t _radius;
 
@@ -95,17 +93,15 @@ namespace knx {
         uint32_t _last_update_time = 0;
 
     public:
-        Door(uint8_t topLeftX, uint8_t topLeftY, uint8_t open_pin, uint8_t is_closed_pin, uint8_t open_pin_knx, uint16_t anim_time = 1000, uint8_t radius = 7, Dotmatrix* parent = &globalDotmatrix)
-            : LocalDotmatrix(topLeftX, topLeftY, 8, 8, parent), _open_pin(open_pin), _is_closed_pin(is_closed_pin), _open_pin_knx(open_pin_knx), _anim_time(anim_time), _radius(radius) {}
+        Door(uint8_t topLeftX, uint8_t topLeftY, bool (*open_input)(void), bool (*open_knx_input)(void), uint8_t is_closed_pin, uint16_t anim_time = 1000, uint8_t radius = 7, Dotmatrix* parent = &globalDotmatrix)
+            : LocalDotmatrix(topLeftX, topLeftY, 8, 8, parent), _open_input(open_input), _open_knx_input(open_knx_input), _is_closed_pin(is_closed_pin), _anim_time(anim_time), _radius(radius) {}
 
         void begin();
 
-        void setOpenPin(uint8_t open_pin) {pinMode(open_pin, INPUT_PULLUP); _open_pin = open_pin;}
-        uint8_t getOpenPin() const {return _open_pin;}
+        void setOpenInput(bool (*open_input)(void)) {_open_input = open_input;}
+        void setOpenKNXInput(bool (*open_knx_input)(void)) {_open_knx_input = open_knx_input;}
         void setIsClosePin(uint8_t is_closed_pin) {pinMode(is_closed_pin, OUTPUT); _is_closed_pin = is_closed_pin;}
         uint8_t getIsClosePin() const {return _is_closed_pin;}
-        void setIsClosePinKNX(uint8_t open_pin_knx) {pinMode(open_pin_knx, INPUT_PULLUP); _open_pin_knx = open_pin_knx;}
-        uint8_t getClosePinKNX() const {return _open_pin_knx;}
 
         void setAnimationTime(uint16_t anim_time) {_anim_time = anim_time;}
         uint16_t getAnimationTime() const {return _anim_time;}
@@ -121,8 +117,8 @@ namespace knx {
     private:
         uint8_t _closed_out_pin;
 
-        uint8_t _up_in_pin;
-        uint8_t _down_in_pin;
+        bool (*_up_input)(void); // input for the up signal
+        bool (*_down_input)(void); // input for the down signal
 
         uint32_t _close_time; // in ms
         float _pos = 8; // in pix
@@ -130,17 +126,15 @@ namespace knx {
         uint32_t _last_update_time = 0;
 
     public:
-        GarageDoor(uint8_t topLeftX, uint8_t topLeftY, uint8_t closed_out_pin, uint8_t up_in_pin, uint8_t down_in_pin, uint32_t close_time = 5000, Dotmatrix* parent = &globalDotmatrix)
-            : LocalDotmatrix(topLeftX, topLeftY, 8, 8, parent), _closed_out_pin(closed_out_pin), _up_in_pin(up_in_pin), _down_in_pin(down_in_pin), _close_time(close_time) {}
+        GarageDoor(uint8_t topLeftX, uint8_t topLeftY, uint8_t closed_out_pin, bool (*up_input)(void), bool (*down_input)(void), uint32_t close_time = 5000, Dotmatrix* parent = &globalDotmatrix)
+            : LocalDotmatrix(topLeftX, topLeftY, 8, 8, parent), _closed_out_pin(closed_out_pin), _up_input(up_input), _down_input(down_input), _close_time(close_time) {}
 
         void begin();
 
         void setClosedOutPin(uint8_t closed_out_pin) {_closed_out_pin = closed_out_pin; pinMode(_closed_out_pin, OUTPUT);}
-        void setUpInPin(uint8_t up_in_pin) {_up_in_pin = up_in_pin; pinMode(_up_in_pin, INPUT_PULLUP);}
-        void setDownInPin(uint8_t down_in_pin) {_down_in_pin = down_in_pin; pinMode(_down_in_pin, INPUT_PULLUP);}
+        void setUpInput(bool (*up_input)(void)) {_up_input = up_input;}
+        void setDownInput(bool (*down_input)(void)) {_down_input = down_input;}
         uint8_t getClosedOutPin() const {return _closed_out_pin;}
-        uint8_t getUpInPin() const {return _up_in_pin;}
-        uint8_t getDownInPin() const {return _down_in_pin;}
 
         void setCloseTime(uint32_t close_time) {_close_time = close_time;}
         uint32_t getCloseTime() const {return _close_time;}
@@ -153,7 +147,7 @@ namespace knx {
     class Window : private LocalDotmatrix {
     private:
         uint8_t _closed_pin;
-        uint8_t _open_pin;
+        bool (*_open_input)(void); // input for the open signal
 
         uint16_t _close_time;
 
@@ -164,15 +158,14 @@ namespace knx {
         float _angle = PI / 2.0; // in rads
 
     public:
-        Window(uint8_t topLeftX, uint8_t topLeftY, uint8_t closed_pin, uint8_t open_pin, uint16_t close_time = 2000, Dotmatrix* parent = &globalDotmatrix)
-            : LocalDotmatrix(topLeftX, topLeftY, 8, 8, parent), _closed_pin(closed_pin), _open_pin(open_pin), _close_time(close_time) {}
+        Window(uint8_t topLeftX, uint8_t topLeftY, uint8_t closed_pin, bool (*open_input)(void), uint16_t close_time = 2000, Dotmatrix* parent = &globalDotmatrix)
+            : LocalDotmatrix(topLeftX, topLeftY, 8, 8, parent), _closed_pin(closed_pin), _open_input(open_input), _close_time(close_time) {}
 
         void begin();
 
         void setClosedPin(uint8_t closed_pin) {_closed_pin = closed_pin; pinMode(_closed_pin, OUTPUT);}
-        void setOpenPin(uint8_t open_pin) {_open_pin = open_pin; pinMode(_open_pin, INPUT_PULLUP);}
+        void setOpenInput(bool (*open_input)(void)) {_open_input = open_input;}
         uint8_t getClosedPin() const {return _closed_pin;}
-        uint8_t getOpenPin() const {return _open_pin;}
 
         void setCloseTime(uint16_t close_time) {_close_time = close_time;}
         uint16_t getcloseTime() const {return _close_time;}
@@ -201,7 +194,9 @@ namespace knx {
         uint16_t _lenght;
         bool* _state_list;
 
-        uint8_t _on_pin, _auto_pin, _out_pin;
+        bool (*_on_input)(void);
+        bool (*_auto_input)(void);
+        uint8_t _out_pin;
         uint32_t _on_color, _off_color;
         float _weather_chance; // in %t
         uint16_t _time_per_period;
@@ -215,7 +210,7 @@ namespace knx {
         WeatherState _current_state = OFF;
 
     public:
-        Weather(uint16_t start_index, uint16_t lenght, uint8_t on_pin, uint8_t auto_pin, uint8_t out_pin, uint32_t on_color, uint32_t off_color, uint16_t time_per_period, float weather_chance = 50, uint16_t time_per_on_frame = 300, Adafruit_NeoPixel* parent = &globalLedStrip);
+        Weather(uint16_t start_index, uint16_t lenght, bool (*on_input)(void), bool (*auto_input)(void), uint8_t out_pin, uint32_t on_color, uint32_t off_color, uint16_t time_per_period, float weather_chance = 50, uint16_t time_per_on_frame = 300, Adafruit_NeoPixel* parent = &globalLedStrip);
         ~Weather() {
             free(_state_list);
         }
@@ -233,10 +228,8 @@ namespace knx {
         uint16_t getLenght() const {return _lenght;}
         bool getCurrentState() const;
 
-        void setOnPin(uint8_t on_pin) {pinMode(on_pin, INPUT_PULLUP); _on_pin = on_pin;}
-        uint8_t getOnPin() const {return _on_pin;}
-        void setAutoPin(uint8_t auto_pin) {pinMode(auto_pin, INPUT_PULLUP); _auto_pin = auto_pin;}
-        uint8_t getAutoPin() const {return _auto_pin;}
+        void setOnInput(bool (*on_input)(void)) {_on_input = on_input;}
+        void setAutoInput(bool (*auto_input)(void)) {_auto_input = auto_input;}
         void setOutPin(uint8_t out_pin) {pinMode(out_pin, OUTPUT); _out_pin = out_pin;}
         uint8_t getOutPin() const {return _out_pin;}
 
@@ -247,8 +240,8 @@ namespace knx {
 
     class Heater : private LEDSegment {
     private:
-        uint8_t _heating_pin;
-        uint8_t _cooling_pin;
+        bool (*_heating_input)(void);
+        bool (*_cooling_input)(void);
 
         uint16_t _heating_hue;
         uint16_t _cooling_hue;
@@ -259,13 +252,11 @@ namespace knx {
         uint32_t _last_update_time = 0;
 
     public:
-        Heater(uint16_t start_index, uint16_t lenght, uint8_t heating_pin, uint8_t cooling_pin, uint16_t heating_hue = 0, uint16_t cooling_hue = 43691, uint32_t temp_reach_time = 3000, Adafruit_NeoPixel* parent = &globalLedStrip)
-            : LEDSegment(start_index, lenght, parent), _heating_pin(heating_pin), _cooling_pin(cooling_pin), _heating_hue(heating_hue), _cooling_hue(cooling_hue), _temp_reach_time(temp_reach_time) {}
+        Heater(uint16_t start_index, uint16_t lenght, bool (*heating_input)(void), bool (*cooling_input)(void), uint16_t heating_hue = 0, uint16_t cooling_hue = 43691, uint32_t temp_reach_time = 3000, Adafruit_NeoPixel* parent = &globalLedStrip)
+            : LEDSegment(start_index, lenght, parent), _heating_input(heating_input), _cooling_input(cooling_input), _heating_hue(heating_hue), _cooling_hue(cooling_hue), _temp_reach_time(temp_reach_time) {}
         
-        void setHeatingPin(uint8_t heating_pin) {_heating_pin = heating_pin; pinMode(_heating_pin, INPUT_PULLUP);}
-        uint8_t getHeatingPin() const {return _heating_pin;}
-        void setCoolingPin(uint8_t cooling_pin) {_cooling_pin = cooling_pin; pinMode(_cooling_pin, INPUT_PULLUP);}
-        uint8_t getCoolingPin() const {return _cooling_pin;}
+        void setHeatingInput(bool (*heating_input)(void)) {_heating_input = heating_input;}
+        void setCoolingInput(bool (*cooling_input)(void)) {_cooling_input = cooling_input;}
         void setHeatingHue(uint16_t heating_hue) {_heating_hue = heating_hue;}
         uint16_t getHeatingHue() const {return _heating_hue;}
         void setCoolingHue(uint16_t cooling_hue) {_cooling_hue = cooling_hue;}

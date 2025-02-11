@@ -41,11 +41,6 @@ namespace knx {
 // public methods
 // --------------------------------------------------
 
-void Blind::begin() {
-    pinMode(_up_pin, INPUT_PULLUP);
-    pinMode(_down_pin, INPUT_PULLUP);
-}
-
 void Blind::setCloseTime(uint16_t closeTime) {
     if (closeTime == 0) {
         Serial.println("closeTime can't be set to 0!");
@@ -66,7 +61,7 @@ void Blind::update() {
     clear();
     float maxAngle = atan(_blindSize);
     float minAngle = atan(1.0/_blindSize);
-    int16_t deltaTime = (!digitalRead(_down_pin) - !digitalRead(_up_pin)) * (millis() - _lastUpdateTime);
+    int16_t deltaTime = (_down_input() - _up_input()) * (millis() - _lastUpdateTime);
 
     if (deltaTime > 0) {
         _timeContinuslyGoingUp = 0;
@@ -103,16 +98,14 @@ void Blind::update() {
 // --------------------------------------------------
 
 void Door::begin() {
-    pinMode(_open_pin, INPUT_PULLUP);
     pinMode(_is_closed_pin, OUTPUT);
-    pinMode(_open_pin_knx, INPUT_PULLUP);
 }
 
 void Door::update() {
     uint32_t delta_time = millis() - _last_update_time;
 
     if (!_opening)
-        _opening = !digitalRead(_open_pin) || !digitalRead(_open_pin_knx);
+        _opening = _open_input() || _open_knx_input();
 
     _curr_angle += (delta_time/(float)_anim_time) * PI/2 * (_opening ? 1 : -1);
     _curr_angle = clamp<float>(_curr_angle, 0, PI/2.0);
@@ -128,7 +121,7 @@ void Door::update() {
 
     digitalWrite(_is_closed_pin, _curr_angle == 0);
 
-    if (_curr_angle >= PI/2.0 && digitalRead(_open_pin) && digitalRead(_open_pin_knx))
+    if (_curr_angle >= PI/2.0 && !_open_input() && !_open_knx_input())
         _opening = false;
 
     _last_update_time = millis();
@@ -144,14 +137,12 @@ void Door::update() {
 
 void GarageDoor::begin() {
     pinMode(_closed_out_pin, OUTPUT);
-    pinMode(_up_in_pin, INPUT_PULLUP);
-    pinMode(_down_in_pin, INPUT_PULLUP);
 }
 
 void GarageDoor::update() {
     uint32_t delta_time = millis() - _last_update_time; // in ms
-    bool up = !digitalRead(_up_in_pin);
-    bool down = !digitalRead(_down_in_pin);
+    bool up = _up_input();
+    bool down = _down_input();
     _pos -= (up - down) * (8 * (delta_time / (float)_close_time));
     _pos = clamp<float>(_pos, 0, 8);
     digitalWrite(_closed_out_pin, _pos >= 8);
@@ -170,13 +161,11 @@ void GarageDoor::update() {
 
 void Window::begin() {
     pinMode(_closed_pin, OUTPUT);
-    pinMode(_open_pin, INPUT_PULLUP);
-    //pinMode(_close_pin, INPUT_PULLUP);
 }
 
 void Window::update() {
     uint32_t delta_time = millis() - _last_update_time; // in ms
-    bool open = !digitalRead(_open_pin);
+    bool open = _open_input();
     _angle += (!open - open) * (PI/2.0 * (delta_time / (float)_close_time));
     _angle = clamp<float>(_angle, 0, PI/2);
 
@@ -211,8 +200,8 @@ void Window::update() {
 // Constructer
 // --------------------------------------------------
 
-Weather::Weather(uint16_t start_index, uint16_t lenght, uint8_t on_pin, uint8_t auto_pin, uint8_t out_pin, uint32_t on_color, uint32_t off_color, uint16_t time_per_period, float weather_chance, uint16_t time_per_on_frame, Adafruit_NeoPixel* parent)
-    : LEDSegment(start_index, lenght, parent), _lenght(lenght), _on_pin(on_pin), _auto_pin(auto_pin), _out_pin(out_pin), _on_color(on_color), _off_color(off_color), _time_per_period(time_per_period), _weather_chance(weather_chance) , _time_per_on_frame(time_per_on_frame)
+Weather::Weather(uint16_t start_index, uint16_t lenght, bool (*on_input)(void), bool (*auto_input)(void), uint8_t out_pin, uint32_t on_color, uint32_t off_color, uint16_t time_per_period, float weather_chance, uint16_t time_per_on_frame, Adafruit_NeoPixel* parent)
+    : LEDSegment(start_index, lenght, parent), _lenght(lenght), _on_input(on_input), _auto_input(auto_input), _out_pin(out_pin), _on_color(on_color), _off_color(off_color), _time_per_period(time_per_period), _weather_chance(weather_chance) , _time_per_on_frame(time_per_on_frame)
 {
     if (_lenght == 0)
         Serial.println("Weather can not be initialized with a lenght of 0!");
@@ -227,8 +216,6 @@ Weather::Weather(uint16_t start_index, uint16_t lenght, uint8_t on_pin, uint8_t 
 // --------------------------------------------------
 
 void Weather::begin() {
-    pinMode(_on_pin, INPUT_PULLUP);
-    pinMode(_auto_pin, INPUT_PULLUP);
     pinMode(_out_pin, OUTPUT);
 }
 
@@ -238,8 +225,8 @@ uint16_t Weather::getNextStates(bool* buffer) const {
 }
 
 void Weather::update() {
-    bool onState = !digitalRead(_on_pin);
-    bool autoState = !digitalRead(_auto_pin);
+    bool onState = _on_input();
+    bool autoState = _auto_input();
     if (!onState && !autoState)
         _current_state = WeatherState::OFF;
     else if (onState)
@@ -308,16 +295,11 @@ bool Weather::getCurrentState() const {
 // public methods
 // --------------------------------------------------
 
-void Heater::begin() {
-    pinMode(_heating_pin, INPUT_PULLUP);
-    pinMode(_cooling_pin, INPUT_PULLUP);
-}
-
 void Heater::update() {
     uint32_t delta_time = millis() - _last_update_time;
     _last_update_time = millis();
 
-    int8_t direc = !digitalRead(_heating_pin) - !digitalRead(_cooling_pin);
+    int8_t direc = _heating_input() - _cooling_input();
 
     if (direc == 0) {
         if (_normalized_temp < 0) {
