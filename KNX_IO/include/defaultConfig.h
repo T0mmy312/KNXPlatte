@@ -25,20 +25,23 @@ extern knx::Blind blind0;
 #define BLIND1_DOWN_PIN 0 //! placeholder
 extern knx::Blind blind1;
 
-#define DOOR_CS_PIN 0 //! placeholder
+#define DOOR_TOP_LEFT_X 0 //! placeholder
+#define DOOR_TOP_LEFT_Y 0 //! placeholder
 #define DOOR_OPEN_PIN 0 //! placeholder
 #define DOOR_OPEN_PIN_KNX 0 //! placeholder
 #define DOOR_IS_CLOSED_PIN 0 //! placeholder
 extern knx::Door door;
 
-#define GARAGE_DOOR_CS_PIN 0 //! placeholder
+#define GARAGE_DOOR_TOP_LEFT_X 0 //! placeholder
+#define GARAGE_DOOR_TOP_LEFT_Y 0 //! placeholder
 #define GARAGE_DOOR_IS_CLOSED_PIN 0 //! placeholder
 #define GARAGE_DOOR_UP_PIN 0 //! placeholder
 #define GARAGE_DOOR_DOWN_PIN 0 //! placeholder
 #define GARAGE_DOOR_CLOSE_TIME 5000 //! placeholder
 extern knx::GarageDoor garageDoor;
 
-#define WINDOW_CS_PIN 0 //! placeholder
+#define WINDOW_TOP_LEFT_X 0 //! placeholder
+#define WINDOW_TOP_LEFT_Y 0 //! placeholder
 #define WINDOW_IS_CLOSED_PIN 0 //! placeholder
 #define WINDOW_OPEN_PIN 0 //! placeholder
 extern knx::Window window;
@@ -74,6 +77,8 @@ extern knx::Weather wind;
 #define HEATER_TEMP_REACH_TIME 3000 // the time needed for the hue to reach the end hue 
 extern knx::Heater heater;
 
+#define RFID_START_INDEX 0 //! placeholder
+#define RFID_LED_LENGHT 0 //! placeholder
 #define RFID_CS_PIN 0 //! placeholder
 #define RFID_RST_PIN 0 //! placeholder
 #define RFID_OUTPUT_PIN 0 //! placeholder

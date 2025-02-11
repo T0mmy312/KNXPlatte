@@ -10,6 +10,27 @@ bool percentChance(float percent) {
     return randomValue < percent;
 }
 
+// ----------------------------------------------------------------------------------------------------
+// operator overloads
+// ----------------------------------------------------------------------------------------------------
+
+bool operator==(const MFRC522::Uid& lhs, const MFRC522::Uid& rhs) {
+    if (lhs.size != rhs.size) {
+        return false;
+    }
+    for (uint8_t i = 0; i < lhs.size; i++) {
+        if (lhs.uidByte[i] != rhs.uidByte[i]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+
+bool operator!=(const MFRC522::Uid& lhs, const MFRC522::Uid& rhs) {
+    return !(lhs == rhs);
+}
+
 namespace knx {
 
 // ----------------------------------------------------------------------------------------------------
@@ -81,11 +102,10 @@ void Blind::update() {
 // public methods
 // --------------------------------------------------
 
-bool Door::begin() {
+void Door::begin() {
     pinMode(_open_pin, INPUT_PULLUP);
     pinMode(_is_closed_pin, OUTPUT);
     pinMode(_open_pin_knx, INPUT_PULLUP);
-    return Dotmatrix::begin();
 }
 
 void Door::update() {
@@ -122,11 +142,10 @@ void Door::update() {
 // public methods
 // --------------------------------------------------
 
-bool GarageDoor::begin() {
+void GarageDoor::begin() {
     pinMode(_closed_out_pin, OUTPUT);
     pinMode(_up_in_pin, INPUT_PULLUP);
     pinMode(_down_in_pin, INPUT_PULLUP);
-    return Dotmatrix::begin();
 }
 
 void GarageDoor::update() {
@@ -149,11 +168,10 @@ void GarageDoor::update() {
 // public methods
 // --------------------------------------------------
 
-bool Window::begin() {
+void Window::begin() {
     pinMode(_closed_pin, OUTPUT);
     pinMode(_open_pin, INPUT_PULLUP);
     //pinMode(_close_pin, INPUT_PULLUP);
-    return Dotmatrix::begin();
 }
 
 void Window::update() {
@@ -321,6 +339,100 @@ void Heater::update() {
 
     LEDSegment::fill(colorHSV(hue, 0xFF, val));
     LEDSegment::show();
+}
+
+// ----------------------------------------------------------------------------------------------------
+// RFID class
+// ----------------------------------------------------------------------------------------------------
+
+// --------------------------------------------------
+// public methods
+// --------------------------------------------------
+
+void RFID::begin() {
+    SPI.begin(18, 19, 23, _ssPin); // VSPI
+
+    pinMode(_output_pin, OUTPUT);
+
+    _mfrc522 = MFRC522(_ssPin, _rstPin);
+    _mfrc522.PCD_Init();
+
+    _ledSegment = LEDSegment(0, _ledCount);
+
+}
+
+void RFID::update() {
+    if (millis() - _last_read > RFID_READ_TIME) {
+        bool is_allowed = false;
+        if (_mfrc522.PICC_IsNewCardPresent() && _mfrc522.PICC_ReadCardSerial()) {        
+            for (uint8_t j = 0; j < _allowed_size; j++) {
+                if (_mfrc522.uid ==  _allowed[j]) {
+                    is_allowed = true;
+                    startAnimation(true);
+                    Serial.println("allowed");
+                    break;
+                }
+                else {
+                    is_allowed = false;
+                    startAnimation(false);
+                    Serial.println("not allowed");
+                    break;
+                }
+            }
+            _mfrc522.PICC_HaltA();
+        }
+
+        if (is_allowed) {
+            digitalWrite(_output_pin, HIGH);
+        }
+        else {
+            digitalWrite(_output_pin, LOW);
+        }
+
+        _last_read = millis();
+    }
+
+    doAnimation();
+
+}
+
+void RFID::startAnimation(bool allowed) {
+    _allowed_animation = allowed;
+    _animation = true;
+    _on_led = 0;
+    _on_way_back = false;
+    _last_led_change = millis();
+}
+
+void RFID::doAnimation() {
+    if (!_animation) return;
+
+    if (millis() - _last_led_change > RFID_LED_TIME) {
+        _on_led++;
+        _last_led_change = millis();
+    }
+    else return;
+
+
+    if (_on_led >= _ledCount) {
+        if (_on_way_back) {
+            _animation = false;
+        }
+        else {
+            _on_way_back = true;
+            _on_led = 0;
+        }
+    }
+
+    for (int i = 0; i < _ledCount; i++) {
+        if ((i <= _on_led && !_on_way_back) || (i >= _on_led && _on_way_back)) {
+            if (_allowed_animation) _ledSegment.setPixelColor(i, _ledSegment.Color(0, 100, 0));
+            else _ledSegment.setPixelColor(i, _ledSegment.Color(100, 0, 0));
+        }
+        else _ledSegment.setPixelColor(i, _ledSegment.Color(0, 0, 2));
+    }
+
+    _ledSegment.show();
 }
 
 }

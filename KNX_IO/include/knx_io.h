@@ -11,7 +11,6 @@
 #define BLIND_HEIGHT 32
 #define BLIND_WIDTH 8
 
-#define RFID_LED_COUNT 16
 #define RFID_LED_TIME 15
 #define RFID_READ_TIME 100
 
@@ -84,7 +83,7 @@ namespace knx {
         void update();
     };
 
-    class Door : private Dotmatrix {
+    class Door : private LocalDotmatrix {
     private:
         uint8_t _open_pin, _is_closed_pin, _open_pin_knx;
         uint16_t _anim_time;
@@ -96,10 +95,10 @@ namespace knx {
         uint32_t _last_update_time = 0;
 
     public:
-        Door(uint8_t cs_pin, uint8_t open_pin, uint8_t is_closed_pin, uint8_t open_pin_knx, uint16_t anim_time = 1000, uint8_t radius = 7)
-            : Dotmatrix(cs_pin, 1), _open_pin(open_pin), _is_closed_pin(is_closed_pin), _open_pin_knx(open_pin_knx), _anim_time(anim_time), _radius(radius) {}
+        Door(uint8_t topLeftX, uint8_t topLeftY, uint8_t open_pin, uint8_t is_closed_pin, uint8_t open_pin_knx, uint16_t anim_time = 1000, uint8_t radius = 7, Dotmatrix* parent = &globalDotmatrix)
+            : LocalDotmatrix(topLeftX, topLeftY, 8, 8, parent), _open_pin(open_pin), _is_closed_pin(is_closed_pin), _open_pin_knx(open_pin_knx), _anim_time(anim_time), _radius(radius) {}
 
-        bool begin();
+        void begin();
 
         void setOpenPin(uint8_t open_pin) {pinMode(open_pin, INPUT_PULLUP); _open_pin = open_pin;}
         uint8_t getOpenPin() const {return _open_pin;}
@@ -118,7 +117,7 @@ namespace knx {
         void update();
     };
 
-    class GarageDoor : private Dotmatrix {
+    class GarageDoor : private LocalDotmatrix {
     private:
         uint8_t _closed_out_pin;
 
@@ -131,10 +130,10 @@ namespace knx {
         uint32_t _last_update_time = 0;
 
     public:
-        GarageDoor(uint8_t cs_pin, uint8_t closed_out_pin, uint8_t up_in_pin, uint8_t down_in_pin, uint32_t close_time = 5000)
-            : Dotmatrix(cs_pin, 1), _closed_out_pin(closed_out_pin), _up_in_pin(up_in_pin), _down_in_pin(down_in_pin), _close_time(close_time) {}
+        GarageDoor(uint8_t topLeftX, uint8_t topLeftY, uint8_t closed_out_pin, uint8_t up_in_pin, uint8_t down_in_pin, uint32_t close_time = 5000, Dotmatrix* parent = &globalDotmatrix)
+            : LocalDotmatrix(topLeftX, topLeftY, 8, 8, parent), _closed_out_pin(closed_out_pin), _up_in_pin(up_in_pin), _down_in_pin(down_in_pin), _close_time(close_time) {}
 
-        bool begin();
+        void begin();
 
         void setClosedOutPin(uint8_t closed_out_pin) {_closed_out_pin = closed_out_pin; pinMode(_closed_out_pin, OUTPUT);}
         void setUpInPin(uint8_t up_in_pin) {_up_in_pin = up_in_pin; pinMode(_up_in_pin, INPUT_PULLUP);}
@@ -151,7 +150,7 @@ namespace knx {
         void update();
     };
 
-    class Window : private Dotmatrix {
+    class Window : private LocalDotmatrix {
     private:
         uint8_t _closed_pin;
         uint8_t _open_pin;
@@ -165,10 +164,10 @@ namespace knx {
         float _angle = PI / 2.0; // in rads
 
     public:
-        Window(uint8_t cs_pin, uint8_t closed_pin, uint8_t open_pin, uint16_t close_time = 2000)
-            : Dotmatrix(cs_pin, 1), _closed_pin(closed_pin), _open_pin(open_pin), _close_time(close_time) {}
+        Window(uint8_t topLeftX, uint8_t topLeftY, uint8_t closed_pin, uint8_t open_pin, uint16_t close_time = 2000, Dotmatrix* parent = &globalDotmatrix)
+            : LocalDotmatrix(topLeftX, topLeftY, 8, 8, parent), _closed_pin(closed_pin), _open_pin(open_pin), _close_time(close_time) {}
 
-        bool begin();
+        void begin();
 
         void setClosedPin(uint8_t closed_pin) {_closed_pin = closed_pin; pinMode(_closed_pin, OUTPUT);}
         void setOpenPin(uint8_t open_pin) {_open_pin = open_pin; pinMode(_open_pin, INPUT_PULLUP);}
@@ -281,8 +280,8 @@ namespace knx {
 
     class RFID {
     public:
-        RFID(uint8_t ssPin, uint8_t rstPin, MFRC522::Uid* allowed, uint8_t allowed_size, uint8_t output_pin)
-            : _ssPin(ssPin), _rstPin(rstPin), _allowed(allowed), _allowed_size(allowed_size), _output_pin(output_pin), _ledSegment(0, RFID_LED_COUNT) {}
+        RFID(uint8_t ledStartIndex, uint8_t ledCount, uint8_t ssPin, uint8_t rstPin, MFRC522::Uid* allowed, uint8_t allowed_size, uint8_t output_pin)
+            : _ssPin(ssPin), _rstPin(rstPin), _allowed(allowed), _allowed_size(allowed_size), _output_pin(output_pin), _ledSegment(ledStartIndex, ledCount), _ledCount(ledCount) {}
 
         void begin();
         void update();
@@ -301,6 +300,7 @@ namespace knx {
         uint32_t _last_read = 0;
 
         LEDSegment _ledSegment;
+        uint8_t _ledCount;
         bool _animation = false;
         bool _allowed_animation;
         int8_t _on_led;

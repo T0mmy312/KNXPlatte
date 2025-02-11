@@ -15,15 +15,19 @@
 #define HEATING_PIN 16
 #define COOLING_PIN 17
 
-//knx::Blind blind(CS_PIN, 22, 21);
+Dotmatrix globalDotmatrix(CS_PIN, 5);
 
-//knx::Door door(CS_PIN, UP_PIN, LED_BUILTIN, DOWN_PIN);
+//LocalDotmatrix ld(0, 2, 8, 8, &globalDotmatrix);
+
+//knx::Blind blind(0, 8, 22, 21);
+
+//knx::Door door(0, 8, UP_PIN, LED_BUILTIN, DOWN_PIN);
 
 //knx::Weather weather(0, 10, ON_PIN, AUTO_PIN, OUT_PIN, globalLedStrip.Color(0, 0, 255), globalLedStrip.Color(0, 0, 0), 5000, 60, 200);
 
-//knx::GarageDoor garageDoor(CS_PIN, OUT_PIN, UP_PIN, DOWN_PIN, 2000);
+//knx::GarageDoor garageDoor(0, 0, OUT_PIN, UP_PIN, DOWN_PIN, 2000);
 
-knx::Window window(CS_PIN, OUT_PIN, UP_PIN, 1000);
+knx::Window window(0, 0, OUT_PIN, UP_PIN, 1000);
 
 //DfMp3 dfmp3(Serial2);
 
@@ -33,7 +37,9 @@ void setup() {
   Serial.begin(115200);
   randomSeed(analogRead(0));
   delay(1000);
-  globalLedStrip.begin();
+
+  //globalLedStrip.begin();
+  globalDotmatrix.begin();
 
   //dfmp3.begin();
   //dfmp3.reset();
@@ -55,5 +61,5 @@ void loop() {
   //blind.update();
   //weather.update();
   //heater.update();
-  delay(100);
+  delay(10);
 }
